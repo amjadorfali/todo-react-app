@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import moment from "moment";
+import { Typography } from "@material-ui/core";
 
 function App() {
   const [time, setTime] = React.useState<string>();
@@ -19,8 +19,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>{date}</h1>
-        <h1>{time}</h1>
+        <Typography gutterBottom color={"textSecondary"} variant={"h1"}>
+          {date}
+        </Typography>
+        <Typography variant={"h2"}>{time}</Typography>
       </header>
     </div>
   );
