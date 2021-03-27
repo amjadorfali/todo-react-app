@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { motion, useAnimation, useMotionValue } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import styled from "styled-components";
-import { Grid, Typography, IconButton } from "@material-ui/core";
+import { Grid, Typography, IconButton, Button } from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create";
 
 import { ReactComponent as TodoIcon } from "../../../assets/svgs/todo.svg";
@@ -19,7 +19,7 @@ const MainPage: React.FC = () => {
   const [doneAnimate, setDoneAnimate] = useState(true);
   // const [baseElementHeight, setBaseHeight] = useState<number>(0);
   const controls = useAnimation();
-  const y = useMotionValue(0);
+  // const y = useMotionValue(0);
   // useEffect(() => {
   //   controls.start("active");
   // });
@@ -33,6 +33,7 @@ const MainPage: React.FC = () => {
       color: "#edf5e1",
       scale: [1, 2, 2, 1, 1],
       rotate: [0, -45, 45, -20, 0],
+      transition: { duration: 2.5 },
     },
     tap: {
       color: "#edf5e1",
@@ -75,10 +76,9 @@ const MainPage: React.FC = () => {
 
           <StyledDoGrid item xs={12}>
             <motion.div
-              variants={variants}
+              // variants={variants}
               whileTap={"tap"}
               initial={false}
-              style={{ y }}
               animate={controls}
               onHoverStart={(event, info) => {
                 if (doneAnimate) {
@@ -93,9 +93,16 @@ const MainPage: React.FC = () => {
                   controls.start("initial");
                 }
               }}
-              className={"do"}
             >
-              Do
+              <Button
+                component={motion.button}
+                variant="text"
+                variants={variants}
+                className={"do"}
+                disableRipple
+              >
+                D<span style={{ textTransform: "lowercase" }}>o</span>
+              </Button>
             </motion.div>
           </StyledDoGrid>
           <Grid item xs={8} md={12} className={"bodyWrapper1"}>
@@ -174,6 +181,7 @@ const StyledContainer = styled(({ children, ...rest }) => (
     font-size: 3.5rem;
     font-weight: 900;
     color: var(--title-color);
+    background-color: transparent;
   }
   .todoPen {
     font-size: 6rem;
