@@ -1,32 +1,23 @@
-import React, { FormEvent, useState } from "react";
+import React, { useState } from "react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
-import {
-  Grid,
-  ButtonBase,
-  Typography,
-  IconButton,
-  Box,
-  SvgIcon,
-} from "@material-ui/core";
 import styled from "styled-components";
-import { TextField, Grow } from "@material-ui/core";
-import RightImage from "../../../assets/images/pluto-page-under-construction.png";
-import LeftImage from "../../../assets/images/polar-15.png";
-import { ReactComponent as TodoIcon } from "../../../assets/svgs/todo.svg";
+import { Grid, Typography, IconButton } from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create";
-import { device } from "../../../utils/helpers/device";
 
-interface IProps {
-  open: boolean;
-  onFormSubmit: (value: string) => void;
-}
+import { ReactComponent as TodoIcon } from "../../../assets/svgs/todo.svg";
+// import { device } from "../../../utils/helpers/device";
+
+// interface IProps {
+//   open: boolean;
+//   onFormSubmit: (value: string) => void;
+// }
 const MainPage: React.FC = () => {
-  const [value, setValue] = useState("");
-  const [divVariant, setDivVariant] = useState<"active" | "inactive" | "">(
-    "active"
-  );
+  // const [value, setValue] = useState("");
+  // const [divVariant, setDivVariant] = useState<"active" | "inactive" | "">(
+  //   "active"
+  // );
   const [doneAnimate, setDoneAnimate] = useState(true);
-  const [baseElementHeight, setBaseHeight] = useState<number>(0);
+  // const [baseElementHeight, setBaseHeight] = useState<number>(0);
   const controls = useAnimation();
   const y = useMotionValue(0);
   // useEffect(() => {
