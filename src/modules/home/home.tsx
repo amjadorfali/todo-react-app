@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "./pages/header";
 import MainPage from "./pages/mainPage";
+import Content from "./pages/content";
 
 // import { motion, useAnimation, useMotionValue } from "framer-motion";
-// import { Grid, ButtonBase, Typography, IconButton } from "@material-ui/core";
 // import styled from "styled-components";
 
 // interface IProps {
@@ -14,10 +14,13 @@ const Home: React.FC = () => {
   // const [value, setValue] = useState("");
 
   return (
-    <div style={{ height: "90vh" }}>
-      <Header />
-      <MainPage />
-    </div>
+    <>
+      <div style={{ height: "100vh", overflow: "hidden" }}>
+        <Header />
+        <MainPage onStartApp={() => {}} />
+      </div>
+      <Content />
+    </>
   );
 };
 export default Home;

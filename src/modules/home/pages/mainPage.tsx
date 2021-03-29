@@ -1,55 +1,22 @@
-import React, { useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import styled from "styled-components";
-import { Grid, Typography, IconButton, Button } from "@material-ui/core";
+import { Grid, Typography, IconButton } from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create";
 
-import { ReactComponent as TodoIcon } from "../../../assets/svgs/todo.svg";
+import { ReactComponent as TodoIcon } from "../../../assets/svgs/homepage/todo.svg";
 // import { device } from "../../../utils/helpers/device";
 
 // interface IProps {
 //   open: boolean;
 //   onFormSubmit: (value: string) => void;
 // }
-const MainPage: React.FC = () => {
-  // const [value, setValue] = useState("");
-  // const [divVariant, setDivVariant] = useState<"active" | "inactive" | "">(
-  //   "active"
-  // );
-  const [doneAnimate, setDoneAnimate] = useState(true);
-  // const [baseElementHeight, setBaseHeight] = useState<number>(0);
-  const controls = useAnimation();
-  // const y = useMotionValue(0);
-  // useEffect(() => {
-  //   controls.start("active");
-  // });
-
-  const variants = {
-    initial: {
-      color: "#379683",
-      transition: { duration: 0.5 },
-    },
-    active: {
-      color: "#edf5e1",
-      scale: [1, 2, 2, 1, 1],
-      rotate: [0, -45, 45, -20, 0],
-      transition: { duration: 2.5 },
-    },
-    tap: {
-      color: "#edf5e1",
-      scale: [1, 2],
-      rotate: [0, -45, 45, -20],
-      transition: { duration: 1 },
-    },
-  };
-
+const MainPage: React.FC<{ onStartApp: () => void }> = ({ onStartApp }) => {
   const slideIn = {
     visible: { opacity: 1, scale: [0.5, 1] },
     hidden: { opacity: 0 },
-    //TODO :
   };
   return (
-    //TODO:
     <StyledWrapper container justify="center">
       <StyledContainer
         item
@@ -70,80 +37,37 @@ const MainPage: React.FC = () => {
         >
           <Grid item xs={12}>
             <StyledTitle variant="h3" className={"title"}>
-              What do you need to
+              What do you need to Do
             </StyledTitle>
           </Grid>
 
-          <StyledDoGrid item xs={12}>
-            <motion.div
-              // variants={variants}
-              whileTap={"tap"}
-              initial={false}
-              animate={controls}
-              onHoverStart={(event, info) => {
-                if (doneAnimate) {
-                  setDoneAnimate(false);
-                  controls.start("active");
-                }
-              }}
-              transition={{ duration: 2.5 }}
-              onAnimationComplete={definition => {
-                setDoneAnimate(true);
-                if (definition === "active") {
-                  controls.start("initial");
-                }
-              }}
-            >
-              <Button
-                component={motion.button}
-                variant="text"
-                variants={variants}
-                className={"do"}
-                disableRipple
-              >
-                D<span style={{ textTransform: "lowercase" }}>o</span>
-              </Button>
-            </motion.div>
-          </StyledDoGrid>
           <Grid item xs={8} md={12} className={"bodyWrapper1"}>
-            <p className={"body1"}>Organize your life in seconds!</p>
+            <motion.p
+              className={"body1"}
+              animate={{
+                x: [-50, 0],
+                opacity: 1,
+              }}
+              initial={{ opacity: 0 }}
+              transition={{ duration: 1.2, delay: 1 }}
+            >
+              Organize your life in seconds!
+            </motion.p>
           </Grid>
-          <Grid
+          <StyledTodoPen
             xs={12}
-            component={motion.div}
             animate={{
-              y: ["30rem", "0rem"],
+              y: [300, 0],
               opacity: 1,
             }}
+            initial={{ opacity: 0 }}
             transition={{ duration: 1.2, delay: 1 }}
             item
-            style={{ alignSelf: "center", opacity: 0.1 }}
           >
-            <IconButton
-              size="small"
-              // onClick={() => setWriteTodoOpen(!writeTodoOpen)}
-            >
-              <CreateIcon
-                // color="inherit"
-                viewBox="0 0 25 25"
-                style={{}}
-                className={"todoPen"}
-              />
+            <IconButton size="small">
+              <CreateIcon viewBox="0 0 25 25" className={"todoPen"} />
             </IconButton>
-          </Grid>
-          {/* <motion.div
-          variants={variants}
-          animate={divVariant}
-          onHoverStart={() => {
-            setDivVariant("inactive");
-          }}
-          onHoverEnd={() => {
-            setDivVariant("active");
-          }}
-          transition={{ duration: 2.5 }}
-        >
-          Yolo
-        </motion.div> */}
+          </StyledTodoPen>
         </Grid>
       </StyledContainer>
       <Grid
@@ -153,6 +77,13 @@ const MainPage: React.FC = () => {
         item
         xs={12}
         sm={5}
+        component={motion.div}
+        animate={{
+          x: [150, 0],
+          opacity: 1,
+        }}
+        initial={{ opacity: 0 }}
+        transition={{ duration: 1.2, delay: 1 }}
       >
         <StyledSvgGrid item xs={9} sm={12}>
           <TodoIcon className={"todoIcon"} />
@@ -166,7 +97,12 @@ const StyledWrapper = styled(Grid)`
   height: 90%;
   padding: 0 1rem;
 `;
-const StyledDoGrid = styled(Grid)`
+
+const StyledTodoPen = styled(({ children, ...rest }) => (
+  <Grid component={motion.div} {...rest}>
+    {children}
+  </Grid>
+))`
   align-self: center;
 `;
 const StyledContainer = styled(({ children, ...rest }) => (
@@ -176,12 +112,10 @@ const StyledContainer = styled(({ children, ...rest }) => (
 ))`
   align-self: center;
 
-  .title,
-  .do {
+  .title {
     font-size: 3.5rem;
     font-weight: 900;
     color: var(--title-color);
-    background-color: transparent;
   }
   .todoPen {
     font-size: 6rem;
@@ -196,8 +130,7 @@ const StyledContainer = styled(({ children, ...rest }) => (
   //Media Queries
 
   @media (max-width: 1000px) {
-    .title,
-    .do {
+    .title {
       font-size: 2.5rem;
       text-align: center;
     }
@@ -214,8 +147,7 @@ const StyledContainer = styled(({ children, ...rest }) => (
   }
 
   @media (max-width: 700px) {
-    .title,
-    .do {
+    .title {
       font-size: 1.75rem;
       text-align: center;
     }
@@ -225,8 +157,7 @@ const StyledContainer = styled(({ children, ...rest }) => (
     }
   }
   @media (max-width: 340px) {
-    .title,
-    .do {
+    .title {
       font-size: 2rem;
       text-align: center;
     }
