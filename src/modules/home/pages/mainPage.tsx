@@ -85,7 +85,7 @@ const MainPage: React.FC<{ onStartApp: () => void }> = ({ onStartApp }) => {
         initial={{ opacity: 0 }}
         transition={{ duration: 1.2, delay: 1 }}
       >
-        <StyledSvgGrid item xs={9} sm={12}>
+        <StyledSvgGrid container direction="column" item xs={9} sm={12}>
           <TodoIcon className={"todoIcon"} />
         </StyledSvgGrid>
       </Grid>
@@ -94,7 +94,7 @@ const MainPage: React.FC<{ onStartApp: () => void }> = ({ onStartApp }) => {
 };
 export default MainPage;
 const StyledWrapper = styled(Grid)`
-  height: 90%;
+  height: 87vh;
   padding: 0 1rem;
 `;
 

@@ -86,7 +86,7 @@ const Header: React.FC = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={""}>
-              Photos
+              Helloooooo
             </Typography>
           </Grid>
           {true && (
@@ -116,8 +116,12 @@ const Header: React.FC = () => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>
+                  Nothing to see here yet!
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  Nothing to see here yet!
+                </MenuItem>
               </Menu>
             </div>
           )}
