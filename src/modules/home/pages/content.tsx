@@ -2,16 +2,11 @@ import React, { useEffect } from "react";
 import { Grid, Divider } from "@material-ui/core";
 import styled from "styled-components";
 import { useInView } from "react-intersection-observer";
-import {
-  useAnimation,
-  motion,
-  useViewportScroll,
-  useTransform,
-} from "framer-motion";
+import { useAnimation, motion } from "framer-motion";
 import { ReactComponent as SimpleIcon } from "../../../assets/svgs/Flower.svg";
-import { ReactComponent as QuickIcon } from "../../../assets/svgs/rocket.svg";
-import { ReactComponent as PriorityIcon } from "../../../assets/svgs/priority.svg";
-import { ReactComponent as OrganizeIcon } from "../../../assets/svgs/Calendar.svg";
+import QuickIcon from "../../../assets/svgs/rocket.svg";
+import PriorityIcon from "../../../assets/svgs/priority.svg";
+import OrganizeIcon from "../../../assets/svgs/Calendar.svg";
 
 const Content: React.FC = () => {
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,16 +19,13 @@ const Content: React.FC = () => {
   const icon3 = useInView();
   const icon4Controls = useAnimation();
   const icon4 = useInView();
-  const { scrollYProgress } = useViewportScroll();
-  const y = useTransform(scrollYProgress, [0, 0.4, 1], [0, -10, -100], {
-    clamp: false,
-  });
-  // const y = useMotionValue(0);
 
   useEffect(() => {
-    icon1.inView
-      ? icon1Controls.start("visible")
-      : icon1Controls.start("hidden");
+    if (icon1.inView) {
+      icon1Controls.start("visible");
+    } else {
+      icon1Controls.start("hidden");
+    }
   }, [icon1Controls, icon1.inView]);
   useEffect(() => {
     icon2.inView
@@ -54,15 +46,10 @@ const Content: React.FC = () => {
   const iconVariants = {
     hidden: {
       opacity: 0,
-      y: 0,
     },
     visible: {
       opacity: 1,
       scale: [0.5, 1],
-    },
-    animateRocket: {
-      y: y.get(),
-      opacity: 1,
     },
   };
   return (
@@ -82,6 +69,7 @@ const Content: React.FC = () => {
           md={5}
           justify="space-between"
           alignItems="center"
+          className="suggestionBox"
         >
           <Grid
             item
@@ -96,9 +84,11 @@ const Content: React.FC = () => {
             <SimpleIcon className={"svgs"} />
           </Grid>
           <Grid item xs={5}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil
-            praesentium deserunt quo tenetur aspernatur est suscipit omnis
-            cupiditate officiis eaque!
+            <StyledText>
+              Simplicity is the key feature of this app.
+              <br />
+              <strong>Just keep it simple bro</strong>
+            </StyledText>
           </Grid>
         </Grid>
         <Divider
@@ -107,6 +97,7 @@ const Content: React.FC = () => {
           flexItem
           variant="middle"
         />
+
         <Grid
           item
           xs={12}
@@ -114,7 +105,7 @@ const Content: React.FC = () => {
           md={5}
           justify="space-between"
           alignItems="center"
-          className="reverse"
+          className="reverse suggestionBox"
         >
           <Grid
             item
@@ -126,22 +117,17 @@ const Content: React.FC = () => {
             variants={iconVariants}
             component={motion.div}
           >
-            <motion.div
-              transition={{ duration: 0.5 }} // variants={iconVariants}
-              animate={{ y: y.get() }}
-              initial={{ y: 0 }}
-            >
-              <QuickIcon className={"svgs"} />
-            </motion.div>
+            <img src={QuickIcon} alt="Quickly" className="svgs" />
           </Grid>
           <Grid item xs={5}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil
-            praesentium deserunt quo tenetur aspernatur est suscipit omnis
-            cupiditate officiis eaque!
+            <StyledText>
+              Experience fast interactions, and never miss a single thing todo.
+              <br /> <strong>Fast, efficient, reliable.</strong>
+            </StyledText>
           </Grid>
         </Grid>
       </Grid>
-
+      <Grid container item xs={12} style={{ margin: "4rem" }}></Grid>
       <Grid container item xs={12} spacing={3} justify="space-between">
         <Grid
           item
@@ -150,6 +136,7 @@ const Content: React.FC = () => {
           md={5}
           justify="space-between"
           alignItems="center"
+          className="suggestionBox"
         >
           <Grid
             item
@@ -161,12 +148,13 @@ const Content: React.FC = () => {
             variants={iconVariants}
             component={motion.div}
           >
-            <PriorityIcon className={"svgs"} />
+            <img src={PriorityIcon} alt="Prioritize" className="svgs" />
           </Grid>
           <Grid item xs={5}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil
-            praesentium deserunt quo tenetur aspernatur est suscipit omnis
-            cupiditate officiis eaque!
+            <StyledText>
+              Have control over your life! Sometimes <strong>~ </strong>The only
+              impossible journey is the one you <strong>never begin .</strong>
+            </StyledText>
           </Grid>
         </Grid>
         <Divider
@@ -175,9 +163,7 @@ const Content: React.FC = () => {
           flexItem
           variant="middle"
         />
-        {/* <Grid container item xs={12} md={undefined}>
-          <Divider variant="fullWidth" />
-        </Grid> */}
+
         <Grid
           item
           xs={12}
@@ -185,7 +171,7 @@ const Content: React.FC = () => {
           md={5}
           justify="space-between"
           alignItems="center"
-          className="reverse"
+          className="reverse suggestionBox"
         >
           <Grid
             item
@@ -197,31 +183,37 @@ const Content: React.FC = () => {
             variants={iconVariants}
             component={motion.div}
           >
-            <OrganizeIcon className={"svgs"} />
+            <img src={OrganizeIcon} alt="Organize" className="svgs" />
           </Grid>
           <Grid item xs={5}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil
-            praesentium deserunt quo tenetur aspernatur est suscipit omnis
-            cupiditate officiis eaque!
+            <StyledText>
+              Keeping track of all the things you have to do can sometimes be a
+              hassle, so don't. Write them down and leave the rest to this
+              <strong> awesome app!</strong>
+            </StyledText>
           </Grid>
-          <Divider flexItem variant="fullWidth" orientation="horizontal" />
         </Grid>
       </Grid>
     </StyledContainer>
   );
 };
 export default Content;
-
+const StyledText = styled.p`
+  font-weight: 200;
+  font-size: large;
+`;
 const StyledContainer = styled(Grid)`
-  padding: 2.5rem;
-  // height: 70%;
+  padding: 1.5rem;
   background-color: var(--text-color);
   .svgs {
-    width: 13rem;
-    height: 15rem;
+    width: 15rem;
+    height: 13rem;
   }
   .svgWrapper {
     text-align: center;
+  }
+  .suggestionBox {
+    padding: 5rem 0;
   }
   @media (max-width: 959px) {
     .reverse {
@@ -236,7 +228,18 @@ const StyledContainer = styled(Grid)`
   @media (max-width: 540px) {
     .svgs {
       width: 8rem;
-      height: 10rem;
+      height: 7rem;
+    }
+  }
+  @media (max-width: 320px) {
+    .svgs {
+      width: 6.5rem;
+      height: 5.5rem;
+    }
+  }
+  @media (max-width: 260px) {
+    .suggestionBox {
+      flex-direction: column;
     }
   }
 `;
