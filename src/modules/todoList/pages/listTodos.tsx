@@ -17,7 +17,7 @@ const ListTodos: React.FC<{
   const removeTodoFinished = useDebounce(startTimer, 1300);
 
   return (
-    <Paper
+    <PaperWrapper
       elevation={0}
       style={{ height: "100%", backgroundColor: "#5cdb95", width: "85%" }}
     >
@@ -49,7 +49,9 @@ const ListTodos: React.FC<{
                   exit={{ opacity: 0, transition: { duration: 0.3 } }}
                   animate={{ opacity: [0, 1] }}
                 >
-                  <TodoPaper key={task.id}>{task.todo}</TodoPaper>
+                  <TodoPaper className={"todo"} key={task.id}>
+                    {task.todo}
+                  </TodoPaper>
                 </motion.div>
               );
             }
@@ -57,10 +59,20 @@ const ListTodos: React.FC<{
           })}
       </AnimatePresence>
       {/* </StyledContainer> */}
-    </Paper>
+    </PaperWrapper>
   );
 };
 export default ListTodos;
+const PaperWrapper = styled(Paper)`
+  .todo {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+`;
 const TodoPaper = styled(Paper)`
   padding: 1rem;
   margin: 0.5rem 0;
