@@ -96,6 +96,12 @@ const TodoListOverview: React.FC = observer(() => {
 export default TodoListOverview;
 
 const StyledContainer = styled(Grid)`
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   height: 81vh;
   .title {
     font-size: 3.5rem;
