@@ -2,23 +2,39 @@ import React from "react";
 
 import "./App.css";
 import { Home } from "../home";
+import { TodoListOverview } from "../todoList";
+import Header from "../home/pages/header";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        {/* <Route path="/about">
-            <About />
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+      />
+      <Header />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+
+          <Route path="/todo-app">
+            <TodoListOverview />
           </Route>
+          {/* 
           <Route path="/dashboard">
             <Dashboard />
           </Route> */}
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
+    </>
   );
 };
 

@@ -1,7 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { TextField, Grow } from "@material-ui/core";
-
 interface IProps {
   open: boolean;
   onFormSubmit: (value: string) => void;
@@ -10,16 +9,19 @@ const WriteTodos: React.FC<IProps> = ({ open, onFormSubmit }) => {
   const [value, setValue] = useState("");
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    onFormSubmit(value);
+    if (value) {
+      onFormSubmit(value);
+      
+    }
   };
   return (
     <StyledContainer>
       <form onSubmit={handleFormSubmit}>
-        <Grow in={open}>
+        <Grow in={true}>
           <TextField
             fullWidth
             value={value}
-            placeholder="Do your dreams. Or just anything :P"
+            placeholder="Start DO ing !"
             color={"primary"}
             onChange={event => {
               setValue(event.target.value);
@@ -36,12 +38,12 @@ const StyledContainer = styled.div`
   width: 50%;
   align-self: center;
   .MuiInput-underline:before {
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid #5cdb95;
   }
   .MuiInput-underline:hover:not(.Mui-disabled):before {
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid #05386b;
   }
   .MuiInput-underline:after {
-    border-bottom: 1px solid yellow;
+    border-bottom: 1px solid #edf5e1;
   }
 `;

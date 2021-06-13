@@ -57,7 +57,6 @@ const Header: React.FC = () => {
   // const imageVariants = {
   //   visible: { opacity: 1 },
   //   hidden: { opacity: 0 },
-  //TODO FIXME: dsds sd
   // };
   return (
     <Grid container direction="row" style={{ paddingBottom: "1rem" }}>
@@ -147,58 +146,6 @@ const StyledNavBar = styled(AppBar)`
     rgba(5, 56, 107, 1) 100%
   );
 `;
-
-// const StyledContainer = styled(Grid)`
-//   height: 90%;
-//   .title {
-//     font-size: 4.5rem;
-//     font-weight: 900;
-//     color: var(--title-color);
-//   }
-//   .icon {
-//     font-size: 8rem;
-//     color: var(--title-color);
-//   }
-//   .body1 {
-//     font-size: 1.5rem;
-//   }
-//   @media (max-width: 1000px) {
-//     .title {
-//       font-size: 3rem;
-//     }
-//     .body1 {
-//       font-size: 1rem;
-//     }
-//     .icon {
-//       font-size: 4rem;
-//     }
-//   }
-
-//   @media (max-width: 700px) {
-//     .title {
-//       font-size: 2rem;
-//     }
-
-//     .icon {
-//       font-size: 4rem;
-//     }
-//   }
-//   @media (max-width: 340px) {
-//     .title {
-//       font-size: 2.5rem;
-//     }
-//     .body1 {
-//       font-size: 1.75rem;
-//     }
-//     .icon {
-//       font-size: 4rem;
-//     }
-
-//     .icon {
-//       font-size: 4rem;
-//     }
-//   }
-// `;
 
 // const StyledTitle = styled(Typography)``;
 // const StyledImage = styled(motion.img)`

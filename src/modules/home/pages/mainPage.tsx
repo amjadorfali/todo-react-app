@@ -64,7 +64,7 @@ const MainPage: React.FC<{ onStartApp: () => void }> = ({ onStartApp }) => {
             transition={{ duration: 1.2, delay: 1 }}
             item
           >
-            <IconButton size="small">
+            <IconButton size="small" onClick={onStartApp}>
               <CreateIcon viewBox="0 0 25 25" className={"todoPen"} />
             </IconButton>
           </StyledTodoPen>

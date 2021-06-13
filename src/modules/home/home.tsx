@@ -1,8 +1,9 @@
 import React from "react";
-import Header from "./pages/header";
+
 import MainPage from "./pages/mainPage";
 import Content from "./pages/content";
 import Footer from "./pages/footer";
+import { RouteComponentProps } from "react-router";
 
 // import { motion, useAnimation, useMotionValue } from "framer-motion";
 // import styled from "styled-components";
@@ -11,14 +12,16 @@ import Footer from "./pages/footer";
 //   open: boolean;
 //   onFormSubmit: (value: string) => void;
 // }
-const Home: React.FC = () => {
+const Home: React.FC<{} & RouteComponentProps<{}>> = ({
+  match: { path },
+  history,
+}) => {
   // const [value, setValue] = useState("");
 
   return (
     <>
       <div style={{ overflow: "hidden" }}>
-        <Header />
-        <MainPage onStartApp={() => {}} />
+        <MainPage onStartApp={() => history.push("todo-app")} />
       </div>
       <Content />
       <Footer />
