@@ -20,9 +20,10 @@ const Todo: React.FC<{
   useEffect(
     () =>
       x.onChange(latest => {
-        if ((latest >= 150 || latest <= -150) && !todo.isComplete) {
+        if ((latest >= 80 || latest <= -80) && !todo.isComplete) {
           markAsComplete(activeCategory, todo.id);
           setConstraints(latest * 5);
+          
         }
       }),
     [x, markAsComplete, todo, activeCategory]
