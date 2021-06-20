@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import styled from "styled-components";
 // import { device } from "../../utils/helpers/device";
-
-import { useAppStore } from "../../stores";
+import { toast } from "react-toastify";
 import { Categories, TodosListGroups } from "../../stores/appStore";
 import WriteTodos from "./pages/writeTodos";
 import ListTodos from "./pages/listTodos";
@@ -11,10 +10,75 @@ import CategoriesButtons from "./pages/categoriesButtons";
 import { observer } from "mobx-react-lite";
 import "./styles.scss";
 const TodoListOverview: React.FC = observer(() => {
-  const { addTodo, todosLists } = useAppStore();
-  const [todos, setTodos] = useState<TodosListGroups>({ ...todosLists });
   const [activeCategory, setActiveCategory] =
     useState<Categories>("personalTodos");
+  const [todos, setTodos] = React.useState<TodosListGroups>({
+    personalTodos: [],
+    workTodos: [],
+    generalTodos: [],
+    homeTodos: [],
+    schoolTodos: [],
+  });
+  const addTodo = (todo: string, type: Categories) => {
+    setTodos(prev => {
+      const newItem = prev[type];
+      newItem.push({
+        isComplete: false,
+        todo,
+        id: prev[type].length,
+      });
+      localStorage.setItem(
+        "todosLists",
+        JSON.stringify({ ...prev, [type]: newItem })
+      );
+
+      return { ...prev, [type]: newItem };
+    });
+    if (todos[type].length === 1)
+      toast.info("✅ Swipe a Todo to mark as Complete!", {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+  };
+  const handleRemoveTodo = (type: keyof TodosListGroups, id: number) => {
+    setTodos(prev => {
+      localStorage.setItem(
+        "todosLists",
+        JSON.stringify({
+          ...prev,
+          [type]: [
+            ...prev[type],
+            (prev[type][id] = { ...prev[type][id], isComplete: true }),
+          ],
+        })
+      );
+
+      return {
+        ...prev,
+        [type]: [
+          ...prev[type],
+          (prev[type][id] = { ...prev[type][id], isComplete: true }),
+        ],
+      };
+    });
+  };
+
+  // React.useEffect(() => {
+  //   console.log("added new item to cache");
+  //   localStorage.setItem("todosLists", JSON.stringify(todos));
+  // }, [todos]);
+  React.useEffect(() => {
+    const localData = localStorage.getItem("todosLists");
+    if (localData !== null) {
+      console.log("cache is working");
+      setTodos(JSON.parse(localData));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // const [writeTodoOpen, setWriteTodoOpen] = useState(false);
   // const [divVariant, setDivVariant] =
   //   useState<"active" | "inactive" | "">("active");
@@ -71,8 +135,13 @@ const TodoListOverview: React.FC = observer(() => {
         xs={12}
         style={{ overflow: "scroll" }}
       >
-        <ListTodos todosLists={todos} activeCategory={activeCategory} />
+        <ListTodos
+          handleRemoveTodo={handleRemoveTodo}
+          todosLists={todos}
+          activeCategory={activeCategory}
+        />
       </Grid>
+
       <Grid
         container
         item
@@ -82,11 +151,9 @@ const TodoListOverview: React.FC = observer(() => {
         style={{ flexBasis: "20%" }}
       >
         <WriteTodos
-          onFormSubmit={value => {
-            setTodos({ ...addTodo(value, activeCategory) });
-          }}
+          onFormSubmit={value => addTodo(value, activeCategory)}
           open={true}
-        ></WriteTodos>
+        />
       </Grid>
 
       {/* <button onClick={clearLocalStorage}> clear</button> */}

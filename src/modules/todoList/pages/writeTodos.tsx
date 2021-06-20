@@ -1,40 +1,69 @@
 import React, { FormEvent, useState } from "react";
 import styled from "styled-components";
-import { TextField, Grow } from "@material-ui/core";
+import { TextField, Grow, IconButton } from "@material-ui/core";
+import AddCircleOutlinedIcon from "@material-ui/icons/AddCircleOutlined";
 interface IProps {
   open: boolean;
   onFormSubmit: (value: string) => void;
 }
-const WriteTodos: React.FC<IProps> = ({ open, onFormSubmit }) => {
+const WriteTodos: React.FC<IProps> = ({ open, onFormSubmit, children }) => {
   const [value, setValue] = useState("");
-  const handleFormSubmit = (event: FormEvent) => {
-    event.preventDefault();
+  const [toggleInput, setToggleInput] = useState(false);
+  const inputEl = React.useRef<HTMLDivElement | null>(null);
+
+  const handleFormSubmit = (event?: FormEvent) => {
+    event && event.preventDefault();
+    if (inputEl) {
+      inputEl.current?.blur();
+    }
     if (value) {
       onFormSubmit(value);
-      
+      setValue("");
+    }
+  };
+  const handleOnPlusClick = () => {
+    if (!value && inputEl) {
+      if (!toggleInput) {
+        inputEl.current?.focus();
+      } else {
+        inputEl.current?.blur();
+      }
+      setToggleInput(!toggleInput);
+    } else {
+      handleFormSubmit();
     }
   };
   return (
-    <StyledContainer>
-      <form onSubmit={handleFormSubmit}>
-        <Grow in={true}>
-          <TextField
-            fullWidth
-            value={value}
-            placeholder="Start DO ing !"
-            color={"primary"}
-            onChange={event => {
-              setValue(event.target.value);
-            }}
-          />
+    <Grow timeout={800} in={true}>
+      <StyledContainer>
+        <Grow timeout={1000} in={toggleInput}>
+          <form onSubmit={handleFormSubmit}>
+            <TextField
+              inputRef={inputEl}
+              fullWidth
+              value={value}
+              placeholder="Start DO ing !"
+              color={"primary"}
+              onChange={event => {
+                setValue(event.target.value);
+              }}
+            />
+          </form>
         </Grow>
-      </form>
-    </StyledContainer>
+        <IconButton
+          style={{ position: "absolute", right: "-1rem", bottom: "2rem" }}
+          onClick={() => handleOnPlusClick()}
+        >
+          <AddCircleOutlinedIcon fontSize={"large"} />
+        </IconButton>
+      </StyledContainer>
+    </Grow>
   );
 };
 export default WriteTodos;
 
 const StyledContainer = styled.div`
+  position: relative;
   width: 50%;
   align-self: center;
   .MuiInput-underline:before {
