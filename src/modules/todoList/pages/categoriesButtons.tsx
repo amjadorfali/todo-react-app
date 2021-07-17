@@ -21,7 +21,6 @@ const CategoriesButtons: React.FC<{
     // <AppBar position="static" color="transparent">
     <CustomTabs
       aria-label="simple CustomTabs example"
-      indicatorColor={"secondary"}
       value={value}
       onChange={handleChange}
       scrollButtons={"on"}
@@ -39,7 +38,7 @@ const CategoriesButtons: React.FC<{
 export default CategoriesButtons;
 
 const CustomTabs = styled(Tabs)`
-  .PrivateTabIndicator-colorSecondary-3 {
+  .MuiTabs-indicator {
     background-color: var(--header-color);
   }
 `;
