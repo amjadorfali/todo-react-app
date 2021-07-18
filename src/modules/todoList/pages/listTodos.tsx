@@ -1,26 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { Paper } from "@material-ui/core";
 import { Categories } from "../../../stores/appStore";
 import Todo from "../components/todo";
-import { AnimatePresence } from "framer-motion";
-import { TodosListGroups } from "../../../stores/appStore";
-
+import { AnimatePresence, motion, useMotionValue } from "framer-motion";
+import { TodosListGroups, TodosList } from "../../../stores/appStore";
+const height = 55;
+const padding = 16;
 const ListTodos: React.FC<{
   activeCategory: Categories;
   todosLists: TodosListGroups;
   handleRemoveTodo: (type: keyof TodosListGroups, id: number) => void;
-}> = ({ activeCategory, todosLists, handleRemoveTodo }) => {
+  showCompleted?: boolean;
+}> = ({
+  activeCategory,
+  todosLists,
+  handleRemoveTodo,
+  showCompleted = false,
+}) => {
+  const y = useMotionValue(0);
+
+  const todos = React.useMemo(
+    () =>
+      todosLists[activeCategory].filter(
+        todo => todo.isComplete === showCompleted
+      ),
+    [todosLists, activeCategory, showCompleted]
+  );
+  useEffect(() => {
+    y.set(0);
+  }, [showCompleted, y]);
+
+  const { top, bottom } = useConstraints(todos);
   return (
     <PaperWrapper
       elevation={0}
       style={{ height: "100%", backgroundColor: "#5cdb95", width: "85%" }}
     >
-      <AnimatePresence>
-        {todosLists[activeCategory].length > 0 &&
-          todosLists[activeCategory].map(task => {
-            if (!task.isComplete) {
+      <motion.div
+        drag="y"
+        dragDirectionLock
+        dragConstraints={{ top: top, bottom: bottom }}
+        style={{
+          y: y,
+        }}
+      >
+        <AnimatePresence>
+          {todos.length > 0 &&
+            todos.map(task => {
               return (
                 <Todo
                   markAsComplete={handleRemoveTodo}
@@ -29,10 +57,9 @@ const ListTodos: React.FC<{
                   key={task.id}
                 />
               );
-            }
-            return null;
-          })}
-      </AnimatePresence>
+            })}
+        </AnimatePresence>
+      </motion.div>
     </PaperWrapper>
   );
 };
@@ -48,3 +75,18 @@ const PaperWrapper = styled(Paper)`
     user-select: none;
   }
 `;
+function getHeight(items: TodosList[]) {
+  const totalHeight = items.length * height;
+  const totalPadding = (items.length - 1) * padding;
+  const totalScroll = totalHeight + totalPadding;
+  return totalScroll;
+}
+
+function useConstraints(items: TodosList[]) {
+  const [constraints, setConstraints] = React.useState({ top: 0, bottom: 0 });
+  React.useEffect(() => {
+    setConstraints({ top: 150 - getHeight(items), bottom: 0 });
+  }, [items]);
+
+  return constraints;
+}

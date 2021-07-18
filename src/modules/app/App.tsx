@@ -20,8 +20,8 @@ const App: React.FC = () => {
         pauseOnFocusLoss
         draggable
       />
-      <Header />
       <Router>
+        <Header  />
         <Switch>
           <Route exact path="/" component={Home} />
 

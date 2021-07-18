@@ -2,6 +2,7 @@ import React from "react";
 
 // import { RouteComponentProps } from "react-router";
 import Tabs from "@material-ui/core/Tabs";
+
 // import AppBar from "@material-ui/core/AppBar";
 
 import Tab from "@material-ui/core/Tab";
@@ -12,6 +13,7 @@ const CategoriesButtons: React.FC<{
   handleChangeCategory: (value: Categories) => void;
 }> = ({ handleChangeCategory }) => {
   const [value, setValue] = React.useState<Categories>("personalTodos");
+  
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: Categories) => {
     setValue(newValue);
@@ -22,6 +24,7 @@ const CategoriesButtons: React.FC<{
     <CustomTabs
       aria-label="simple CustomTabs example"
       value={value}
+      indicatorColor={undefined}
       onChange={handleChange}
       scrollButtons={"on"}
       variant="scrollable"

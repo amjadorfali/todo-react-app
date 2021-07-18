@@ -34,7 +34,7 @@ const WriteTodos: React.FC<IProps> = ({ open, onFormSubmit, children }) => {
     }
   };
   return (
-    <Grow timeout={800} in={true}>
+    <Grow timeout={800} in={open}>
       <StyledContainer>
         <Grow timeout={1000} in={toggleInput}>
           <form onSubmit={handleFormSubmit}>

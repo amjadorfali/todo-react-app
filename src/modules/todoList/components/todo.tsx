@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { useMotionValue, useTransform, motion } from "framer-motion";
+import {
+  useMotionValue,
+  useTransform,
+  motion,
+  useAnimation,
+  PanInfo,
+} from "framer-motion";
 import styled from "styled-components";
 import { Categories, TodosList } from "../../../stores/appStore";
 import { TodosListGroups } from "../../../stores/appStore";
@@ -9,45 +15,59 @@ const Todo: React.FC<{
   todo: TodosList;
   markAsComplete: (type: keyof TodosListGroups, id: number) => void;
 }> = observer(({ activeCategory, todo, markAsComplete }) => {
-  const [dragConstraints, setConstraints] = React.useState(0);
-
   const x = useMotionValue(0);
   const background = useTransform(
     x,
-    [-100, 0, 100],
-    ["#05386b", "#ffffff", "#05386b"]
+    [-150, 0, 150],
+    ["#00C500", "#ffffff", "#00C500"]
   );
-  useEffect(
-    () =>
-      x.onChange(latest => {
-        if ((latest >= 80 || latest <= -80) && !todo.isComplete) {
-          markAsComplete(activeCategory, todo.id);
-          setConstraints(latest * 5);
-          
-        }
-      }),
-    [x, markAsComplete, todo, activeCategory]
-  );
+  const controls = useAnimation();
 
+  async function handleDragEnd(
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) {
+    const offset = info.offset.x;
+    const velocity = info.velocity.x;
+    if (
+      !todo.isComplete &&
+      (offset < -300 || offset > 300 || velocity < -500)
+    ) {
+      await controls.start({
+        x: [x.get(), x.get() * 1.5, x.get() * 2, x.get() * 2.5, x.get() * 3],
+        transition: { duration: 0.75 },
+      });
+      markAsComplete(activeCategory, todo.id);
+    } else {
+      controls.start({ x: 0, opacity: 1, transition: { duration: 0.5 } });
+    }
+  }
+  useEffect(() => {
+    controls.start({ opacity: [0, 1], transition: { duration: 0.5 } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <PaperMotion
-      key={todo.id}
-      style={{ background, x }}
-      drag="x"
-      dragConstraints={{
-        left: dragConstraints,
-        right: dragConstraints,
+    <motion.div
+      layout
+      transition={{
+        type: "spring",
+        stiffness: 600,
+        damping: 30,
       }}
-      exit={{
-        opacity: 0,
-        transition: { duration: 1, x: [x.get(), x.get() * 3, x.get() * 5] },
-      }}
-      animate={{ opacity: [0, 1] }}
     >
-      <p key={todo.id} style={{ padding: "1rem", textAlign: "justify" }}>
-        {todo.todo}
-      </p>
-    </PaperMotion>
+      <PaperMotion
+        key={todo.id}
+        style={{ background, x }}
+        drag="x"
+        dragDirectionLock
+        onDragEnd={handleDragEnd}
+        animate={controls}
+      >
+        <p key={todo.id} style={{ padding: "1rem", textAlign: "justify" }}>
+          {todo.todo}
+        </p>
+      </PaperMotion>
+    </motion.div>
   );
 });
 export default Todo;

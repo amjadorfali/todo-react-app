@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import styled from "styled-components";
 // import { device } from "../../utils/helpers/device";
 import { toast } from "react-toastify";
@@ -19,6 +19,8 @@ const TodoListOverview: React.FC = observer(() => {
     homeTodos: [],
     schoolTodos: [],
   });
+
+  const [toggleCompleted, setToggleCompleted] = React.useState(false);
   const addTodo = (todo: string, type: Categories) => {
     setTodos(prev => {
       const newItem = prev[type];
@@ -45,36 +47,35 @@ const TodoListOverview: React.FC = observer(() => {
       });
   };
   const handleRemoveTodo = (type: keyof TodosListGroups, id: number) => {
+    todos[type].some(todo => {
+      if (todo.id === id) {
+        todo.isComplete = true;
+        return true;
+      }
+      return false;
+    });
     setTodos(prev => {
       localStorage.setItem(
         "todosLists",
         JSON.stringify({
           ...prev,
-          [type]: [
-            ...prev[type],
-            (prev[type][id] = { ...prev[type][id], isComplete: true }),
-          ],
+          [type]: todos[type],
         })
       );
 
       return {
         ...prev,
-        [type]: [
-          ...prev[type],
-          (prev[type][id] = { ...prev[type][id], isComplete: true }),
-        ],
+        [type]: todos[type],
       };
     });
   };
 
   // React.useEffect(() => {
-  //   console.log("added new item to cache");
   //   localStorage.setItem("todosLists", JSON.stringify(todos));
   // }, [todos]);
   React.useEffect(() => {
     const localData = localStorage.getItem("todosLists");
     if (localData !== null) {
-      console.log("cache is working");
       setTodos(JSON.parse(localData));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,6 +125,9 @@ const TodoListOverview: React.FC = observer(() => {
         justify="center"
         alignContent="center"
       >
+        <Button onClick={() => setToggleCompleted(!toggleCompleted)}>
+          {toggleCompleted ? "Show Pending" : "Show Completed"}
+        </Button>
         <CategoriesButtons handleChangeCategory={setActiveCategory} />
       </Grid>
       <Grid
@@ -136,6 +140,7 @@ const TodoListOverview: React.FC = observer(() => {
         style={{ overflow: "scroll" }}
       >
         <ListTodos
+          showCompleted={toggleCompleted}
           handleRemoveTodo={handleRemoveTodo}
           todosLists={todos}
           activeCategory={activeCategory}
@@ -152,7 +157,7 @@ const TodoListOverview: React.FC = observer(() => {
       >
         <WriteTodos
           onFormSubmit={value => addTodo(value, activeCategory)}
-          open={true}
+          open={!toggleCompleted}
         />
       </Grid>
 
