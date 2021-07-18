@@ -71,7 +71,7 @@ const Header: React.FC = observer(() => {
   //   hidden: { opacity: 0 },
   // };const classes = useStyles();
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const clearCache = () => {
+  const clearCompletedTodos = () => {
     const localData = JSON.parse(
       localStorage.getItem("todosLists") || ""
     ) as TodosListGroups;
@@ -83,6 +83,12 @@ const Header: React.FC = observer(() => {
     });
 
     localStorage.setItem("todosLists", JSON.stringify(localData));
+    window.location.reload();
+  };
+
+  const clearCache = () => {
+    localStorage.clear();
+    window.location.reload();
   };
   const list = () => (
     <div
@@ -99,11 +105,17 @@ const Header: React.FC = observer(() => {
           <ListItemText primary={"Home"} />
         </ListItem>
 
+        <ListItem onClick={clearCompletedTodos} button key={"clearCache"}>
+          <ListItemIcon>
+            <DeleteForeverTwoToneIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Clear Completed Todos"} />
+        </ListItem>
         <ListItem onClick={clearCache} button key={"clearCache"}>
           <ListItemIcon>
             <DeleteForeverTwoToneIcon />
           </ListItemIcon>
-          <ListItemText primary={"Clear Cache"} />
+          <ListItemText primary={"Clear All Cache"} />
         </ListItem>
         <Divider />
         <ListItem button key={"tip"}>
@@ -112,6 +124,8 @@ const Header: React.FC = observer(() => {
             stored per user account. For now, when you no longer need your
             COMPLETED todos, press Clear Cache to delete them and make the app
             faster.
+            <Divider />
+            If you experience bugs, clearing ALL the cache can solve the issues.
           </ListItemText>
         </ListItem>
       </List>
