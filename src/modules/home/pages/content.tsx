@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { Grid, Divider } from "@material-ui/core";
-import styled from "styled-components";
-import { useInView } from "react-intersection-observer";
-import { useAnimation, motion } from "framer-motion";
-import { ReactComponent as SimpleIcon } from "../../../assets/svgs/Flower.svg";
-import QuickIcon from "../../../assets/svgs/rocket.svg";
-import PriorityIcon from "../../../assets/svgs/priority.svg";
-import OrganizeIcon from "../../../assets/svgs/Calendar.svg";
+import React, { useEffect } from 'react';
+import { Grid, Divider } from '@material-ui/core';
+import styled from 'styled-components';
+import { useInView } from 'react-intersection-observer';
+import { useAnimation, motion } from 'framer-motion';
+import { ReactComponent as SimpleIcon } from '../../../assets/svgs/Flower.svg';
+import QuickIcon from '../../../assets/svgs/rocket.svg';
+import PriorityIcon from '../../../assets/svgs/priority.svg';
+import OrganizeIcon from '../../../assets/svgs/Calendar.svg';
 
-const Content: React.FC = () => {
+const Content: React.FC<React.PropsWithChildren<unknown>> = () => {
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   // const open = Boolean(anchorEl);
   const icon1Controls = useAnimation();
@@ -22,26 +22,20 @@ const Content: React.FC = () => {
 
   useEffect(() => {
     if (icon1.inView) {
-      icon1Controls.start("visible");
+      icon1Controls.start('visible');
     } else {
-      icon1Controls.start("hidden");
+      icon1Controls.start('hidden');
     }
   }, [icon1Controls, icon1.inView]);
   useEffect(() => {
-    icon2.inView
-      ? icon2Controls.start("visible")
-      : icon2Controls.start("hidden");
+    icon2.inView ? icon2Controls.start('visible') : icon2Controls.start('hidden');
   }, [icon2Controls, icon2.inView]);
 
   useEffect(() => {
-    icon3.inView
-      ? icon3Controls.start("visible")
-      : icon3Controls.start("hidden");
+    icon3.inView ? icon3Controls.start('visible') : icon3Controls.start('hidden');
   }, [icon3Controls, icon3.inView]);
   useEffect(() => {
-    icon4.inView
-      ? icon4Controls.start("visible")
-      : icon4Controls.start("hidden");
+    icon4.inView ? icon4Controls.start('visible') : icon4Controls.start('hidden');
   }, [icon4Controls, icon4.inView]);
   const iconVariants = {
     hidden: {
@@ -54,23 +48,8 @@ const Content: React.FC = () => {
   };
   return (
     <StyledContainer container direction="row">
-      <Grid
-        container
-        item
-        xs={12}
-        spacing={3}
-        justify="space-between"
-        style={{ paddingBottom: "1rem" }}
-      >
-        <Grid
-          item
-          xs={12}
-          container
-          md={5}
-          justify="space-between"
-          alignItems="center"
-          className="suggestionBox"
-        >
+      <Grid container item xs={12} spacing={3} justifyContent="space-between" style={{ paddingBottom: '1rem' }}>
+        <Grid item xs={12} container md={5} justifyContent="space-between" alignItems="center" className="suggestionBox">
           <Grid
             item
             xs={5}
@@ -81,7 +60,7 @@ const Content: React.FC = () => {
             variants={iconVariants}
             component={motion.div}
           >
-            <SimpleIcon className={"svgs"} />
+            <SimpleIcon className={'svgs'} />
           </Grid>
           <Grid item xs={5}>
             <StyledText>
@@ -91,28 +70,15 @@ const Content: React.FC = () => {
             </StyledText>
           </Grid>
         </Grid>
-        <Divider
-          className="dividers"
-          orientation="vertical"
-          flexItem
-          variant="middle"
-        />
+        <Divider className="dividers" orientation="vertical" flexItem variant="middle" />
 
-        <Grid
-          item
-          xs={12}
-          container
-          md={5}
-          justify="space-between"
-          alignItems="center"
-          className="reverse suggestionBox"
-        >
+        <Grid item xs={12} container md={5} justifyContent="space-between" alignItems="center" className="reverse suggestionBox">
           <Grid
             item
             xs={5}
             className="svgWrapper"
             ref={icon2.ref}
-            initial={"hidden"}
+            initial={'hidden'}
             animate={icon2Controls}
             variants={iconVariants}
             component={motion.div}
@@ -127,17 +93,9 @@ const Content: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container item xs={12} style={{ margin: "4rem" }}></Grid>
-      <Grid container item xs={12} spacing={3} justify="space-between">
-        <Grid
-          item
-          xs={12}
-          container
-          md={5}
-          justify="space-between"
-          alignItems="center"
-          className="suggestionBox"
-        >
+      <Grid container item xs={12} style={{ margin: '4rem' }}></Grid>
+      <Grid container item xs={12} spacing={3} justifyContent="space-between">
+        <Grid item xs={12} container md={5} justifyContent="space-between" alignItems="center" className="suggestionBox">
           <Grid
             item
             xs={5}
@@ -152,27 +110,13 @@ const Content: React.FC = () => {
           </Grid>
           <Grid item xs={5}>
             <StyledText>
-              Have control over your life! Sometimes <strong>~ </strong>The only
-              impossible journey is the one you <strong>never begin .</strong>
+              Have control over your life! Sometimes <strong>~ </strong>The only impossible journey is the one you <strong>never begin .</strong>
             </StyledText>
           </Grid>
         </Grid>
-        <Divider
-          className="dividers"
-          orientation="vertical"
-          flexItem
-          variant="middle"
-        />
+        <Divider className="dividers" orientation="vertical" flexItem variant="middle" />
 
-        <Grid
-          item
-          xs={12}
-          container
-          md={5}
-          justify="space-between"
-          alignItems="center"
-          className="reverse suggestionBox"
-        >
+        <Grid item xs={12} container md={5} justifyContent="space-between" alignItems="center" className="reverse suggestionBox">
           <Grid
             item
             xs={5}
@@ -187,8 +131,7 @@ const Content: React.FC = () => {
           </Grid>
           <Grid item xs={5}>
             <StyledText>
-              Keeping track of all the things you have to do can sometimes be a
-              hassle, so don't. Write them down and leave the rest to this
+              Keeping track of all the things you have to do can sometimes be a hassle, so don't. Write them down and leave the rest to this
               <strong> awesome app!</strong>
             </StyledText>
           </Grid>

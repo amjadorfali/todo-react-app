@@ -1,6 +1,6 @@
 import React from "react";
 
-// import { RouteComponentProps } from "react-router";
+// import { useNavigate } from "react-router-dom";
 import Tabs from "@material-ui/core/Tabs";
 
 // import AppBar from "@material-ui/core/AppBar";
@@ -9,11 +9,12 @@ import Tab from "@material-ui/core/Tab";
 import styled from "styled-components";
 import { Categories } from "../../../stores/appStore";
 
-const CategoriesButtons: React.FC<{
-  handleChangeCategory: (value: Categories) => void;
-}> = ({ handleChangeCategory }) => {
+const CategoriesButtons: React.FC<
+  React.PropsWithChildren<{
+    handleChangeCategory: (value: Categories) => void;
+  }>
+> = ({ handleChangeCategory }) => {
   const [value, setValue] = React.useState<Categories>("personalTodos");
-  
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: Categories) => {
     setValue(newValue);

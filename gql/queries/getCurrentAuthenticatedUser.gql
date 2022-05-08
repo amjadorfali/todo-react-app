@@ -1,0 +1,18 @@
+query getCurrentAuthenticatedUser($paginationInput: FindPaginatedTodosInput!){
+    getCurrentAuthenticatedUser{
+        email
+        firstName
+        id
+        lastName
+        password
+        registrationDate
+        registrationNumber
+        todos(paginationInput: $paginationInput){
+            action
+            category
+            id
+            isDone
+        }
+        userName
+    }
+}

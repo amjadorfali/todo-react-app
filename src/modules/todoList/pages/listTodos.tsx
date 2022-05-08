@@ -8,12 +8,14 @@ import { AnimatePresence, motion, useMotionValue } from "framer-motion";
 import { TodosListGroups, TodosList } from "../../../stores/appStore";
 const height = 55;
 const padding = 16;
-const ListTodos: React.FC<{
-  activeCategory: Categories;
-  todosLists: TodosListGroups;
-  handleRemoveTodo: (type: keyof TodosListGroups, id: number) => void;
-  showCompleted?: boolean;
-}> = ({
+const ListTodos: React.FC<
+  React.PropsWithChildren<{
+    activeCategory: Categories;
+    todosLists: TodosListGroups;
+    handleRemoveTodo: (type: keyof TodosListGroups, id: number) => void;
+    showCompleted?: boolean;
+  }>
+> = ({
   activeCategory,
   todosLists,
   handleRemoveTodo,
@@ -47,17 +49,18 @@ const ListTodos: React.FC<{
         }}
       >
         <AnimatePresence>
-          {todos.length > 0 &&
-            todos.map(task => {
-              return (
-                <Todo
-                  markAsComplete={handleRemoveTodo}
-                  todo={task}
-                  activeCategory={activeCategory}
-                  key={task.id}
-                />
-              );
-            })}
+          {todos.length > 0
+            ? todos.map(task => {
+                return (
+                  <Todo
+                    markAsComplete={handleRemoveTodo}
+                    todo={task}
+                    activeCategory={activeCategory}
+                    key={task.id}
+                  />
+                );
+              })
+            : []}
         </AnimatePresence>
       </motion.div>
     </PaperWrapper>

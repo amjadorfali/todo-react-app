@@ -7,7 +7,7 @@ import { useInView } from "react-intersection-observer";
 import { ReactComponent as PendingIcon } from "../../../assets/svgs/under-construction.svg";
 import { useAnimation, motion } from "framer-motion";
 
-const Header: React.FC = () => {
+const Header: React.FC<React.PropsWithChildren<unknown>> = () => {
   const iconControls = useAnimation();
   const underConstructionIcon = useInView();
   React.useEffect(() => {
@@ -29,7 +29,7 @@ const Header: React.FC = () => {
     <Grid
       container
       direction="row"
-      justify="center"
+      justifyContent="center"
       alignContent="center"
       ref={underConstructionIcon.ref}
       style={{ padding: "5rem 0", height: "80vh" }}
