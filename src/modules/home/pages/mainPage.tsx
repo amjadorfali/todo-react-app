@@ -11,13 +11,15 @@ import { ReactComponent as TodoIcon } from "../../../assets/svgs/homepage/todo.s
 //   open: boolean;
 //   onFormSubmit: (value: string) => void;
 // }
-const MainPage: React.FC<{ onStartApp: () => void }> = ({ onStartApp }) => {
+const MainPage: React.FC<
+  React.PropsWithChildren<{ onStartApp: () => void }>
+> = ({ onStartApp }) => {
   const slideIn = {
     visible: { opacity: 1, scale: [0.5, 1] },
     hidden: { opacity: 0 },
   };
   return (
-    <StyledWrapper container justify="center">
+    <StyledWrapper container justifyContent="center">
       <StyledContainer
         item
         xs={12}
@@ -72,7 +74,7 @@ const MainPage: React.FC<{ onStartApp: () => void }> = ({ onStartApp }) => {
       </StyledContainer>
       <Grid
         container
-        justify="center"
+        justifyContent="center"
         alignContent="center"
         item
         xs={12}

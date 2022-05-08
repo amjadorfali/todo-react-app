@@ -1,0 +1,18 @@
+query getUserByUserName($paginationInput: FindPaginatedTodosInput!, $user: GetUserByUserNameInput!){
+    getUserByUserName(user: $user){
+        email
+        firstName
+        id
+        lastName
+        password
+        registrationDate
+        registrationNumber
+        todos(paginationInput: $paginationInput){
+            action
+            category
+            id
+            isDone
+        }
+        userName
+    }
+}

@@ -3,7 +3,7 @@ import moment from "moment";
 import { Typography } from "@material-ui/core";
 import { device } from "../../utils/helpers/device";
 import styled from "styled-components";
-const DateBar: React.FC = () => {
+const DateBar: React.FC<React.PropsWithChildren<unknown>> = () => {
   const [time, setTime] = useState<string>();
   const [date, setDate] = useState<string>();
   const [enterClass, setEnterClass] = useState<string>();

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { DateBar } from "../../components/dateBar";
 
-const HeaderBar: React.FC = () => {
+const HeaderBar: React.FC<React.PropsWithChildren<unknown>> = () => {
   return (
     <Container>
       <DateBar />

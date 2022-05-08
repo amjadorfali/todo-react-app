@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { Snackbar, Button } from '@material-ui/core';
 import * as serviceWorker from '../../serviceWorkerRegistration';
 
-const ServiceWorkerWrapper: FC = () => {
+const ServiceWorkerWrapper: FC<React.PropsWithChildren<unknown>> = () => {
   const [showReload, setShowReload] = React.useState(false);
   const [waitingWorker, setWaitingWorker] = React.useState<ServiceWorker | null>(null);
 

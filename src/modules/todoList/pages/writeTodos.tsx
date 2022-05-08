@@ -6,7 +6,7 @@ interface IProps {
   open: boolean;
   onFormSubmit: (value: string) => void;
 }
-const WriteTodos: React.FC<IProps> = ({ open, onFormSubmit, children }) => {
+const WriteTodos: React.FC<React.PropsWithChildren<IProps>> = ({ open, onFormSubmit, children }) => {
   const [value, setValue] = useState("");
   const [toggleInput, setToggleInput] = useState(false);
   const inputEl = React.useRef<HTMLDivElement | null>(null);

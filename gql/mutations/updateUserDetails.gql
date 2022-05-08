@@ -1,0 +1,18 @@
+mutation updateUserDetails($paginationInput: FindPaginatedTodosInput!, $updateUserInput: UpdateUserInput!){
+    updateUserDetails(updateUserInput: $updateUserInput){
+        email
+        firstName
+        id
+        lastName
+        password
+        registrationDate
+        registrationNumber
+        todos(paginationInput: $paginationInput){
+            action
+            category
+            id
+            isDone
+        }
+        userName
+    }
+}

@@ -1,0 +1,18 @@
+mutation signUp($paginationInput: FindPaginatedTodosInput!, $createUserInput: CreateUserInput!){
+    signUp(createUserInput: $createUserInput){
+        email
+        firstName
+        id
+        lastName
+        password
+        registrationDate
+        registrationNumber
+        todos(paginationInput: $paginationInput){
+            action
+            category
+            id
+            isDone
+        }
+        userName
+    }
+}

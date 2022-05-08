@@ -10,11 +10,11 @@ import styled from "styled-components";
 import { Categories, TodosList } from "../../../stores/appStore";
 import { TodosListGroups } from "../../../stores/appStore";
 import { observer } from "mobx-react-lite";
-const Todo: React.FC<{
+const Todo: React.FC<React.PropsWithChildren<{
   activeCategory: Categories;
   todo: TodosList;
   markAsComplete: (type: keyof TodosListGroups, id: number) => void;
-}> = observer(({ activeCategory, todo, markAsComplete }) => {
+}>> = observer(({ activeCategory, todo, markAsComplete }) => {
   const x = useMotionValue(0);
   const background = useTransform(
     x,
