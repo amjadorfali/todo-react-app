@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
-import { Typography } from "@material-ui/core";
-import { device } from "../../utils/helpers/device";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import { Typography } from '@material-ui/core';
+import { device } from '../../utils/helpers/device';
+import styled from 'styled-components';
 const DateBar: React.FC<React.PropsWithChildren<unknown>> = () => {
   const [time, setTime] = useState<string>();
   const [date, setDate] = useState<string>();
   const [enterClass, setEnterClass] = useState<string>();
   useEffect(() => {
     const dateInterval = setInterval(() => {
-      setTime(moment().format("h:mm:ss a"));
-      setDate(moment().format("dddd , MMMM Do"));
+      setTime(moment().format('h:mm:ss a'));
+      setDate(moment().format('dddd , MMMM Do'));
     }, 1000);
 
     return () => {
@@ -18,14 +18,14 @@ const DateBar: React.FC<React.PropsWithChildren<unknown>> = () => {
     };
   }, []);
   useEffect(() => {
-    setEnterClass("date-active ");
+    setEnterClass('date-active ');
   }, [setEnterClass]);
   return (
     <Wrapper>
-      <StyledDate variant={"h4"} className={`date ${enterClass}`}>
+      <StyledDate variant={'h4'} className={`date ${enterClass}`}>
         {date}
       </StyledDate>
-      <StyledTime variant={"h5"}>{time}</StyledTime>
+      <StyledTime variant={'h5'}>{time}</StyledTime>
     </Wrapper>
   );
 };
