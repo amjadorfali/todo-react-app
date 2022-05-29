@@ -2,24 +2,24 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TodosListGroups } from '../../../stores/appStore';
 import { observer } from 'mobx-react-lite';
-import styled from 'styled-components';
+import styled from '@mui/styled-engine';
 
-import { Grid, Typography, IconButton, Divider } from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Drawer from '@material-ui/core/Drawer';
-import MenuIcon from '@material-ui/icons/Menu';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { Grid, Typography, IconButton, Divider } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Drawer from '@mui/material/Drawer';
+import MenuIcon from '@mui/icons-material/Menu';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
-import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
-import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 // import { device } from "../../../utils/helpers/device";
 
 // interface IProps {
@@ -124,6 +124,14 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
   );
 
   return (
+    //  <Grid container direction={"column"} xs={12}>
+    //   <div>
+    //     <motion.img src={LeftImage} style={{ size: 1 }} />
+    //   </div>
+    //   <div>
+    //     <motion.img src={RightImage} />
+    //   </div>
+    // </Grid>
     <Grid container direction="row" style={{ paddingBottom: '1rem' }}>
       {' '}
       {/* <FormGroup>
@@ -131,6 +139,7 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
           control={
             <Switch
               checked={auth}
+              color='secondary'
               onChange={handleChange}
               aria-label="login switch"
             />
@@ -147,6 +156,7 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
               color="inherit"
               aria-label="menu"
               onClick={() => setMenuOpen(true)}
+              size="large"
             >
               <MenuIcon />
             </IconButton>
@@ -159,7 +169,14 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
           </Grid>
           {true && (
             <div>
-              <IconButton aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu} color="inherit">
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+                size="large"
+              >
                 <AccountCircle />
               </IconButton>
               <Menu
@@ -186,14 +203,6 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
         </Toolbar>
       </StyledNavBar>
     </Grid>
-    //  <Grid container direction={"column"} xs={12}>
-    //   <div>
-    //     <motion.img src={LeftImage} style={{ size: 1 }} />
-    //   </div>
-    //   <div>
-    //     <motion.img src={RightImage} />
-    //   </div>
-    // </Grid>
   );
 });
 export default Header;

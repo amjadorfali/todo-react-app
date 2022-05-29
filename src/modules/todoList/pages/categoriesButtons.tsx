@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 
 // import { useNavigate } from "react-router-dom";
-import Tabs from "@material-ui/core/Tabs";
+import Tabs from '@mui/material/Tabs';
 
-// import AppBar from "@material-ui/core/AppBar";
+// import AppBar from "@mui/material/AppBar";
 
-import Tab from "@material-ui/core/Tab";
-import styled from "styled-components";
-import { Categories } from "../../../stores/appStore";
+import Tab from '@mui/material/Tab';
+import styled from '@mui/styled-engine';
+import { Categories } from '../../../stores/appStore';
 
 const CategoriesButtons: React.FC<
   React.PropsWithChildren<{
     handleChangeCategory: (value: Categories) => void;
   }>
 > = ({ handleChangeCategory }) => {
-  const [value, setValue] = React.useState<Categories>("personalTodos");
+  const [value, setValue] = React.useState<Categories>('personalTodos');
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: Categories) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: Categories) => {
     setValue(newValue);
     handleChangeCategory(newValue);
   };
@@ -27,14 +27,14 @@ const CategoriesButtons: React.FC<
       value={value}
       indicatorColor={undefined}
       onChange={handleChange}
-      scrollButtons={"on"}
+      allowScrollButtonsMobile
       variant="scrollable"
     >
-      <Tab label="Personal" value={"personalTodos"} />
-      <Tab label="Work" value={"workTodos"} />
-      <Tab label="School" value={"schoolTodos"} />
-      <Tab label="Home" value={"homeTodos"} />
-      <Tab label="General" value={"generalTodos"} />
+      <Tab label="Personal" value={'personalTodos'} />
+      <Tab label="Work" value={'workTodos'} />
+      <Tab label="School" value={'schoolTodos'} />
+      <Tab label="Home" value={'homeTodos'} />
+      <Tab label="General" value={'generalTodos'} />
     </CustomTabs>
     // </AppBar>
   );
@@ -44,5 +44,8 @@ export default CategoriesButtons;
 const CustomTabs = styled(Tabs)`
   .MuiTabs-indicator {
     background-color: var(--header-color);
+  }
+  .Mui-selected {
+    color: #00000099;
   }
 `;

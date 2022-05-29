@@ -1,13 +1,13 @@
-import React, { FormEvent, useState } from "react";
-import styled from "styled-components";
-import { TextField, Grow, IconButton } from "@material-ui/core";
-import AddCircleOutlinedIcon from "@material-ui/icons/AddCircleOutlined";
+import React, { FormEvent, useState } from 'react';
+import styled from '@mui/styled-engine';
+import { TextField, Grow, IconButton } from '@mui/material';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 interface IProps {
   open: boolean;
   onFormSubmit: (value: string) => void;
 }
 const WriteTodos: React.FC<React.PropsWithChildren<IProps>> = ({ open, onFormSubmit, children }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const [toggleInput, setToggleInput] = useState(false);
   const inputEl = React.useRef<HTMLDivElement | null>(null);
 
@@ -18,7 +18,7 @@ const WriteTodos: React.FC<React.PropsWithChildren<IProps>> = ({ open, onFormSub
     }
     if (value) {
       onFormSubmit(value);
-      setValue("");
+      setValue('');
     }
   };
   const handleOnPlusClick = () => {
@@ -36,25 +36,24 @@ const WriteTodos: React.FC<React.PropsWithChildren<IProps>> = ({ open, onFormSub
   return (
     <Grow timeout={800} in={open}>
       <StyledContainer>
-        <Grow timeout={1000} in={toggleInput}>
-          <form onSubmit={handleFormSubmit}>
+        <Grow timeout={1000} in={toggleInput} unmountOnExit mountOnEnter>
+          <form autoComplete="off" onSubmit={handleFormSubmit}>
             <TextField
               inputRef={inputEl}
               fullWidth
+              variant="standard"
               value={value}
               placeholder="Start DO ing !"
-              color={"primary"}
-              onChange={event => {
+              autoFocus
+              color={'primary'}
+              onChange={(event) => {
                 setValue(event.target.value);
               }}
             />
           </form>
         </Grow>
-        <IconButton
-          style={{ position: "absolute", right: "-1rem", bottom: "2rem" }}
-          onClick={() => handleOnPlusClick()}
-        >
-          <AddCircleOutlinedIcon fontSize={"large"} />
+        <IconButton style={{ position: 'absolute', right: '-1rem', bottom: '2rem' }} onClick={() => handleOnPlusClick()} size="large">
+          <AddCircleOutlinedIcon fontSize={'large'} />
         </IconButton>
       </StyledContainer>
     </Grow>
@@ -62,7 +61,7 @@ const WriteTodos: React.FC<React.PropsWithChildren<IProps>> = ({ open, onFormSub
 };
 export default WriteTodos;
 
-const StyledContainer = styled.div`
+const StyledContainer = styled('div')`
   position: relative;
   width: 50%;
   align-self: center;

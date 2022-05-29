@@ -1,8 +1,8 @@
-import React from "react";
-import { Grid } from "@material-ui/core";
-import styled from "styled-components";
+import React from 'react';
+import { Grid } from '@mui/material';
+import styled from '@mui/styled-engine';
 
-import { DateBar } from "../../components/dateBar";
+import { DateBar } from '../../components/dateBar';
 
 const HeaderBar: React.FC<React.PropsWithChildren<unknown>> = () => {
   return (
@@ -13,6 +13,6 @@ const HeaderBar: React.FC<React.PropsWithChildren<unknown>> = () => {
 };
 export default HeaderBar;
 
-const Container = styled.div`
+const Container = styled('div')`
   padding: 1rem;
 `;

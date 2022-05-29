@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { device } from '../../utils/helpers/device';
-import styled from 'styled-components';
+import styled from '@mui/styled-engine';
 const DateBar: React.FC<React.PropsWithChildren<unknown>> = () => {
   const [time, setTime] = useState<string>();
   const [date, setDate] = useState<string>();
@@ -45,7 +45,7 @@ const StyledTime = styled(Typography)`
   // }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   display: flex;
   flex: row wrap;
   justify-content: space-between;
