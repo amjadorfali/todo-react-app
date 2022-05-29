@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Snackbar, Button } from '@material-ui/core';
+import { Snackbar, Button } from '@mui/material';
 import * as serviceWorker from '../../serviceWorkerRegistration';
 
 const ServiceWorkerWrapper: FC<React.PropsWithChildren<unknown>> = () => {

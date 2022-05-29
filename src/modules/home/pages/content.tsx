@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Grid, Divider } from '@material-ui/core';
-import styled from 'styled-components';
+import { Grid, Divider } from '@mui/material';
+import styled from '@mui/styled-engine';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion } from 'framer-motion';
 import { ReactComponent as SimpleIcon } from '../../../assets/svgs/Flower.svg';
@@ -141,7 +141,7 @@ const Content: React.FC<React.PropsWithChildren<unknown>> = () => {
   );
 };
 export default Content;
-const StyledText = styled.p`
+const StyledText = styled('p')`
   font-weight: 200;
   font-size: large;
 `;

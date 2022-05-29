@@ -2,24 +2,24 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TodosListGroups } from '../../../stores/appStore';
 import { observer } from 'mobx-react-lite';
-import styled from 'styled-components';
+import styled from '@mui/styled-engine';
 
-import { Grid, Typography, IconButton, Divider } from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Drawer from '@material-ui/core/Drawer';
-import MenuIcon from '@material-ui/icons/Menu';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { Grid, Typography, IconButton, Divider } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Drawer from '@mui/material/Drawer';
+import MenuIcon from '@mui/icons-material/Menu';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
-import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
-import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 // import { device } from "../../../utils/helpers/device";
 
 // interface IProps {

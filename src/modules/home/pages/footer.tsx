@@ -1,19 +1,17 @@
-import React from "react";
+import React from 'react';
 // import { useMotionValue } from "framer-motion";
-import { Grid } from "@material-ui/core";
-// import styled from "styled-components";
-import { useInView } from "react-intersection-observer";
+import { Grid } from '@mui/material';
+// import styled from "@mui/styled-engine";
+import { useInView } from 'react-intersection-observer';
 
-import { ReactComponent as PendingIcon } from "../../../assets/svgs/under-construction.svg";
-import { useAnimation, motion } from "framer-motion";
+import { ReactComponent as PendingIcon } from '../../../assets/svgs/under-construction.svg';
+import { useAnimation, motion } from 'framer-motion';
 
 const Header: React.FC<React.PropsWithChildren<unknown>> = () => {
   const iconControls = useAnimation();
   const underConstructionIcon = useInView();
   React.useEffect(() => {
-    underConstructionIcon.inView
-      ? iconControls.start("visible")
-      : iconControls.start("hidden");
+    underConstructionIcon.inView ? iconControls.start('visible') : iconControls.start('hidden');
   }, [iconControls, underConstructionIcon.inView]);
   const SvgIcon = motion(PendingIcon);
   const iconVariants = {
@@ -32,15 +30,9 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = () => {
       justifyContent="center"
       alignContent="center"
       ref={underConstructionIcon.ref}
-      style={{ padding: "5rem 0", height: "80vh" }}
+      style={{ padding: '5rem 0', height: '80vh' }}
     >
-      <SvgIcon
-        initial={"hidden"}
-        animate={iconControls}
-        variants={iconVariants}
-        width="100%"
-        height="100%"
-      />
+      <SvgIcon initial={'hidden'} animate={iconControls} variants={iconVariants} width="100%" height="100%" />
       {/* <SvgIcon width="100%" height="100%" /> */}
     </Grid>
   );

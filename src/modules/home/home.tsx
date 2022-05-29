@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import MainPage from "./pages/mainPage";
-import Content from "./pages/content";
-import Footer from "./pages/footer";
-import { useNavigate } from "react-router-dom";
+import MainPage from './pages/mainPage';
+import Content from './pages/content';
+import Footer from './pages/footer';
+import { useNavigate } from 'react-router-dom';
 
 // import { motion, useAnimation, useMotionValue } from "framer-motion";
-// import styled from "styled-components";
+// import styled from "@mui/styled-engine";
 
 // interface IProps {
 //   open: boolean;
@@ -17,8 +17,8 @@ const Home: React.FC<React.PropsWithChildren<{}>> = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div style={{ overflow: "hidden" }}>
-        <MainPage onStartApp={() => navigate("todo-app")} />
+      <div style={{ overflow: 'hidden' }}>
+        <MainPage onStartApp={() => navigate('todo-app')} />
       </div>
       <Content />
       <Footer />

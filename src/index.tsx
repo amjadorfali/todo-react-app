@@ -6,7 +6,7 @@ import { App } from './modules/app';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import * as ReactDOMClient from 'react-dom/client';
-import { ThemeProvider, createTheme } from '@material-ui/core';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme();
 const container = document.getElementById('root');

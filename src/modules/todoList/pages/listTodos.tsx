@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import styled from '@mui/styled-engine';
 
-import { Paper } from "@material-ui/core";
-import { Categories } from "../../../stores/appStore";
-import Todo from "../components/todo";
-import { AnimatePresence, motion, useMotionValue } from "framer-motion";
-import { TodosListGroups, TodosList } from "../../../stores/appStore";
+import { Paper } from '@mui/material';
+import { Categories } from '../../../stores/appStore';
+import Todo from '../components/todo';
+import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
+import { TodosListGroups, TodosList } from '../../../stores/appStore';
 const height = 55;
 const padding = 16;
 const ListTodos: React.FC<
@@ -15,19 +15,11 @@ const ListTodos: React.FC<
     handleRemoveTodo: (type: keyof TodosListGroups, id: number) => void;
     showCompleted?: boolean;
   }>
-> = ({
-  activeCategory,
-  todosLists,
-  handleRemoveTodo,
-  showCompleted = false,
-}) => {
+> = ({ activeCategory, todosLists, handleRemoveTodo, showCompleted = false }) => {
   const y = useMotionValue(0);
 
   const todos = React.useMemo(
-    () =>
-      todosLists[activeCategory].filter(
-        todo => todo.isComplete === showCompleted
-      ),
+    () => todosLists[activeCategory].filter((todo) => todo.isComplete === showCompleted),
     [todosLists, activeCategory, showCompleted]
   );
   useEffect(() => {
@@ -36,10 +28,7 @@ const ListTodos: React.FC<
 
   const { top, bottom } = useConstraints(todos);
   return (
-    <PaperWrapper
-      elevation={0}
-      style={{ height: "100%", backgroundColor: "#5cdb95", width: "85%" }}
-    >
+    <PaperWrapper elevation={0} style={{ height: '100%', backgroundColor: '#5cdb95', width: '85%' }}>
       <motion.div
         drag="y"
         dragDirectionLock
@@ -50,15 +39,8 @@ const ListTodos: React.FC<
       >
         <AnimatePresence>
           {todos.length > 0
-            ? todos.map(task => {
-                return (
-                  <Todo
-                    markAsComplete={handleRemoveTodo}
-                    todo={task}
-                    activeCategory={activeCategory}
-                    key={task.id}
-                  />
-                );
+            ? todos.map((task) => {
+                return <Todo markAsComplete={handleRemoveTodo} todo={task} activeCategory={activeCategory} key={task.id} />;
               })
             : []}
         </AnimatePresence>
