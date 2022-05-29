@@ -16,7 +16,7 @@ const CategoriesButtons: React.FC<
 > = ({ handleChangeCategory }) => {
   const [value, setValue] = React.useState<Categories>('personalTodos');
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: Categories) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: Categories) => {
     setValue(newValue);
     handleChangeCategory(newValue);
   };

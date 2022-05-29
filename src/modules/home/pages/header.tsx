@@ -124,6 +124,14 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
   );
 
   return (
+    //  <Grid container direction={"column"} xs={12}>
+    //   <div>
+    //     <motion.img src={LeftImage} style={{ size: 1 }} />
+    //   </div>
+    //   <div>
+    //     <motion.img src={RightImage} />
+    //   </div>
+    // </Grid>
     <Grid container direction="row" style={{ paddingBottom: '1rem' }}>
       {' '}
       {/* <FormGroup>
@@ -131,6 +139,7 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
           control={
             <Switch
               checked={auth}
+              color='secondary'
               onChange={handleChange}
               aria-label="login switch"
             />
@@ -147,6 +156,7 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
               color="inherit"
               aria-label="menu"
               onClick={() => setMenuOpen(true)}
+              size="large"
             >
               <MenuIcon />
             </IconButton>
@@ -159,7 +169,14 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
           </Grid>
           {true && (
             <div>
-              <IconButton aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu} color="inherit">
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+                size="large"
+              >
                 <AccountCircle />
               </IconButton>
               <Menu
@@ -186,14 +203,6 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
         </Toolbar>
       </StyledNavBar>
     </Grid>
-    //  <Grid container direction={"column"} xs={12}>
-    //   <div>
-    //     <motion.img src={LeftImage} style={{ size: 1 }} />
-    //   </div>
-    //   <div>
-    //     <motion.img src={RightImage} />
-    //   </div>
-    // </Grid>
   );
 });
 export default Header;

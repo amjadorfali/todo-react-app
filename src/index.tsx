@@ -6,7 +6,7 @@ import { App } from './modules/app';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import * as ReactDOMClient from 'react-dom/client';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme();
 const container = document.getElementById('root');
@@ -18,9 +18,11 @@ if (container) {
   // Initial render: Render an element to the root.
   root.render(
     <StrictMode>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </StyledEngineProvider>
     </StrictMode>
   );
 

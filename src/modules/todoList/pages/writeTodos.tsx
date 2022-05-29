@@ -36,13 +36,15 @@ const WriteTodos: React.FC<React.PropsWithChildren<IProps>> = ({ open, onFormSub
   return (
     <Grow timeout={800} in={open}>
       <StyledContainer>
-        <Grow timeout={1000} in={toggleInput}>
-          <form onSubmit={handleFormSubmit}>
+        <Grow timeout={1000} in={toggleInput} unmountOnExit mountOnEnter>
+          <form autoComplete="off" onSubmit={handleFormSubmit}>
             <TextField
               inputRef={inputEl}
               fullWidth
+              variant="standard"
               value={value}
               placeholder="Start DO ing !"
+              autoFocus
               color={'primary'}
               onChange={(event) => {
                 setValue(event.target.value);
@@ -50,7 +52,7 @@ const WriteTodos: React.FC<React.PropsWithChildren<IProps>> = ({ open, onFormSub
             />
           </form>
         </Grow>
-        <IconButton style={{ position: 'absolute', right: '-1rem', bottom: '2rem' }} onClick={() => handleOnPlusClick()}>
+        <IconButton style={{ position: 'absolute', right: '-1rem', bottom: '2rem' }} onClick={() => handleOnPlusClick()} size="large">
           <AddCircleOutlinedIcon fontSize={'large'} />
         </IconButton>
       </StyledContainer>
