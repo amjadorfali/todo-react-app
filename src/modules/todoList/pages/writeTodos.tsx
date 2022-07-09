@@ -63,6 +63,8 @@ export default WriteTodos;
 
 const StyledContainer = styled('div')`
   position: relative;
+  margin-top: 6rem;
+  min-height: 2rem;
   width: 50%;
   align-self: center;
   .MuiInput-underline:before {

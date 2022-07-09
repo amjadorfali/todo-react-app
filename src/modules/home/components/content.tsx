@@ -3,10 +3,10 @@ import { Grid, Divider } from '@mui/material';
 import styled from '@mui/styled-engine';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion } from 'framer-motion';
-import { ReactComponent as SimpleIcon } from '../../../assets/svgs/Flower.svg';
-import QuickIcon from '../../../assets/svgs/rocket.svg';
-import PriorityIcon from '../../../assets/svgs/priority.svg';
-import OrganizeIcon from '../../../assets/svgs/Calendar.svg';
+import { ReactComponent as SimpleIcon } from 'assets/svgs/Flower.svg';
+import QuickIcon from 'assets/svgs/rocket.svg';
+import PriorityIcon from 'assets/svgs/priority.svg';
+import OrganizeIcon from 'assets/svgs/Calendar.svg';
 
 const Content: React.FC<React.PropsWithChildren<unknown>> = () => {
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

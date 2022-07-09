@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import { useMotionValue, useTransform, motion, useAnimation, PanInfo } from 'framer-motion';
 import styled from '@mui/styled-engine';
-import { Categories, TodosList } from '../../../stores/appStore';
-import { TodosListGroups } from '../../../stores/appStore';
-import { observer } from 'mobx-react-lite';
+import { Categories, TodosList } from 'stores/appStore';
 const Todo: React.FC<
   React.PropsWithChildren<{
     activeCategory: Categories;
     todo: TodosList;
-    markAsComplete: (type: keyof TodosListGroups, id: number) => void;
+    markAsComplete: (type: Categories, id: string) => void;
   }>
-> = observer(({ activeCategory, todo, markAsComplete }) => {
+> = ({ activeCategory, todo, markAsComplete }) => {
   const x = useMotionValue(0);
   const background = useTransform(x, [-150, 0, 150], ['#00C500', '#ffffff', '#00C500']);
   const controls = useAnimation();
@@ -18,7 +16,7 @@ const Todo: React.FC<
   async function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
     const offset = info.offset.x;
     const velocity = info.velocity.x;
-    if (!todo.isComplete && (offset < -300 || offset > 300 || velocity < -500)) {
+    if (!todo.isDone && (offset < -300 || offset > 300 || velocity < -500)) {
       await controls.start({
         x: [x.get(), x.get() * 1.5, x.get() * 2, x.get() * 2.5, x.get() * 3],
         transition: { duration: 0.75 },
@@ -43,12 +41,12 @@ const Todo: React.FC<
     >
       <PaperMotion key={todo.id} style={{ background, x }} drag="x" dragDirectionLock onDragEnd={handleDragEnd} animate={controls}>
         <p key={todo.id} style={{ padding: '1rem', textAlign: 'justify' }}>
-          {todo.todo}
+          {todo.action}
         </p>
       </PaperMotion>
     </motion.div>
   );
-});
+};
 export default Todo;
 
 const PaperMotion = styled(motion.div)`

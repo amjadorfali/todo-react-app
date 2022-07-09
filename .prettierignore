@@ -3,5 +3,5 @@
 **/.hg
 **/node_modules
 
-./gql/**
-./src/generated/**
+gql/**
+src/generated/**

@@ -4,18 +4,19 @@ import styled from '@mui/styled-engine';
 import { Grid, Typography, IconButton } from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 
-import { ReactComponent as TodoIcon } from '../../../assets/svgs/homepage/todo.svg';
-// import { device } from "../../../utils/helpers/device";
+import { ReactComponent as TodoIcon } from 'assets/svgs/homepage/todo.svg';
+// import { device } from "utils/helpers/device";
 
 // interface IProps {
 //   open: boolean;
 //   onFormSubmit: (value: string) => void;
 // }
-const MainPage: React.FC<React.PropsWithChildren<{ onStartApp: () => void }>> = ({ onStartApp }) => {
-  const slideIn = {
-    visible: { opacity: 1, scale: [0.5, 1] },
-    hidden: { opacity: 0 },
-  };
+const slideIn = {
+  visible: { opacity: 1, scale: [0.5, 1] },
+  hidden: { opacity: 0 },
+};
+
+const MainPage: React.FC<React.PropsWithChildren<{ openTodosApp: () => void }>> = ({ openTodosApp }) => {
   return (
     <StyledWrapper container justifyContent="center">
       <StyledContainer item xs={12} sm={7} initial="hidden" animate="visible" transition={{ duration: 1 }} variants={slideIn}>
@@ -49,7 +50,7 @@ const MainPage: React.FC<React.PropsWithChildren<{ onStartApp: () => void }>> = 
             transition={{ duration: 1.2, delay: 1 }}
             item
           >
-            <IconButton size="small" onClick={onStartApp}>
+            <IconButton size="small" onClick={openTodosApp}>
               <CreateIcon viewBox="0 0 25 25" className={'todoPen'} />
             </IconButton>
           </StyledTodoPen>

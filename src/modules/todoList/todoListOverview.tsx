@@ -1,81 +1,82 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Button } from '@mui/material';
 import styled from '@mui/styled-engine';
-// import { device } from "../../utils/helpers/device";
-import { toast } from 'react-toastify';
-import { Categories, TodosListGroups } from '../../stores/appStore';
+// import { device } from "utils/helpers/device";
+import { toast, ToastOptions } from 'react-toastify';
+import { Categories } from 'stores/appStore';
 import WriteTodos from './pages/writeTodos';
 import ListTodos from './pages/listTodos';
 import CategoriesButtons from './pages/categoriesButtons';
-import { observer } from 'mobx-react-lite';
 import './styles.scss';
-const TodoListOverview: React.FC<React.PropsWithChildren<unknown>> = observer(() => {
-  const [activeCategory, setActiveCategory] = useState<Categories>('personalTodos');
-  const [todos, setTodos] = React.useState<TodosListGroups>({
-    personalTodos: [],
-    workTodos: [],
-    generalTodos: [],
-    homeTodos: [],
-    schoolTodos: [],
-  });
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from 'modules/auth/authContext';
+import { RoutesConfig } from 'utils/interfaces/routesConfig';
+import useGetTodos from './hooks/useGetTodos';
+import useUpdateTodo from './hooks/useUpdateTodo';
+import useAddTodo from './hooks/useAddTodo';
+import { useQueryClient } from 'react-query';
 
+const toastOptions: ToastOptions = {
+  position: 'top-right',
+  autoClose: false,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+};
+
+const TodoListOverview: React.FC<React.PropsWithChildren<unknown>> = () => {
+  const { userLoggedIn, userDetails } = useAuthContext();
+
+  const [activeCategory, setActiveCategory] = useState<Categories>(Categories.PERSONAL);
+  // const [todos, setTodos] = React.useState<TodosList[]>([]);
   const [toggleCompleted, setToggleCompleted] = React.useState(false);
-  const addTodo = (todo: string, type: Categories) => {
-    setTodos((prev) => {
-      const newItem = prev[type];
-      newItem.push({
-        isComplete: false,
-        todo,
-        id: prev[type].length,
-      });
-      localStorage.setItem('todosLists', JSON.stringify({ ...prev, [type]: newItem }));
+  const { todosList } = useGetTodos(toggleCompleted, activeCategory);
+  const queryClient = useQueryClient();
+  const { mutateAsync: updateTodoAsync } = useUpdateTodo();
+  const { mutateAsync: addTodoAsync } = useAddTodo();
+  const navigate = useNavigate();
 
-      return { ...prev, [type]: newItem };
-    });
-    if (todos[type].length === 1)
-      toast.info('✅ Swipe a Todo to mark as Complete!', {
-        position: 'top-right',
-        autoClose: false,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-  };
-  const handleRemoveTodo = (type: keyof TodosListGroups, id: number) => {
-    todos[type].some((todo) => {
-      if (todo.id === id) {
-        todo.isComplete = true;
-        return true;
-      }
-      return false;
-    });
-    setTodos((prev) => {
-      localStorage.setItem(
-        'todosLists',
-        JSON.stringify({
-          ...prev,
-          [type]: todos[type],
-        })
-      );
-
-      return {
-        ...prev,
-        [type]: todos[type],
-      };
-    });
-  };
-
-  // React.useEffect(() => {
-  //   localStorage.setItem("todosLists", JSON.stringify(todos));
-  // }, [todos]);
-  React.useEffect(() => {
-    const localData = localStorage.getItem('todosLists');
-    if (localData !== null) {
-      setTodos(JSON.parse(localData));
+  useEffect(() => {
+    if (!userLoggedIn) {
+      console.log('Routed from Todos to Login');
+      navigate(`/${RoutesConfig.USER}${RoutesConfig.USER_LOGIN}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigate, userLoggedIn]);
+
+  const addTodo = (todo: string, type: Categories) => {
+    addTodoAsync(
+      {
+        createTodoInput: {
+          action: todo,
+          category: type,
+        },
+      },
+      {
+        onError: (err, vars, context) => {
+          queryClient.setQueriesData('fetchTodos', context?.previousTodos);
+        },
+      }
+    );
+
+    if (todosList.length <= 1 && userDetails.todos.length <= 1) toast.info('✅ Swipe a Todo to mark as Complete!', toastOptions);
+  };
+  const handleRemoveTodo = async (type: Categories, id: string) => {
+    await updateTodoAsync(
+      {
+        updateTodoInput: {
+          todoId: id,
+          isDone: true,
+        },
+      },
+      {
+        onError: (err, vars, context) => {
+          queryClient.setQueriesData('fetchTodos', context?.previousTodos);
+        },
+      }
+    );
+  };
+
   // const [writeTodoOpen, setWriteTodoOpen] = useState(false);
   // const [divVariant, setDivVariant] =
   //   useState<"active" | "inactive" | "">("active");
@@ -109,12 +110,12 @@ const TodoListOverview: React.FC<React.PropsWithChildren<unknown>> = observer(()
     <StyledContainer container direction="column" wrap={'nowrap'} justifyContent="center" alignContent="center">
       <Grid container item xs={12} style={{ flexBasis: '30%' }} justifyContent="center" alignContent="center">
         <Button color="inherit" onClick={() => setToggleCompleted(!toggleCompleted)}>
-          {toggleCompleted ? 'Show Pending' : 'Show Completed'}
+          {toggleCompleted ? 'Completed' : 'Todos'}
         </Button>
         <CategoriesButtons handleChangeCategory={setActiveCategory} />
       </Grid>
-      <Grid container item direction="column" justifyContent="center" alignContent="center" xs={12} style={{ overflow: 'scroll' }}>
-        <ListTodos showCompleted={toggleCompleted} handleRemoveTodo={handleRemoveTodo} todosLists={todos} activeCategory={activeCategory} />
+      <Grid container item direction="column" justifyContent="center" alignContent="center" xs={12}>
+        <ListTodos showCompleted={toggleCompleted} handleRemoveTodo={handleRemoveTodo} todosLists={todosList} activeCategory={activeCategory} />
       </Grid>
 
       <Grid container item justifyContent="center" alignContent="center" xs={12} style={{ flexBasis: '20%' }}>
@@ -124,7 +125,7 @@ const TodoListOverview: React.FC<React.PropsWithChildren<unknown>> = observer(()
       {/* <button onClick={clearLocalStorage}> clear</button> */}
     </StyledContainer>
   );
-});
+};
 export default TodoListOverview;
 
 const StyledContainer = styled(Grid)`
@@ -134,7 +135,6 @@ const StyledContainer = styled(Grid)`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  height: 81vh;
   .title {
     font-size: 3.5rem;
     font-weight: 600;

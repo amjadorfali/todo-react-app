@@ -7,14 +7,14 @@ import Tabs from '@mui/material/Tabs';
 
 import Tab from '@mui/material/Tab';
 import styled from '@mui/styled-engine';
-import { Categories } from '../../../stores/appStore';
+import { Categories } from 'stores/appStore';
 
 const CategoriesButtons: React.FC<
   React.PropsWithChildren<{
     handleChangeCategory: (value: Categories) => void;
   }>
 > = ({ handleChangeCategory }) => {
-  const [value, setValue] = React.useState<Categories>('personalTodos');
+  const [value, setValue] = React.useState<Categories>(Categories.PERSONAL);
 
   const handleChange = (event: React.SyntheticEvent, newValue: Categories) => {
     setValue(newValue);
@@ -30,11 +30,11 @@ const CategoriesButtons: React.FC<
       allowScrollButtonsMobile
       variant="scrollable"
     >
-      <Tab label="Personal" value={'personalTodos'} />
-      <Tab label="Work" value={'workTodos'} />
-      <Tab label="School" value={'schoolTodos'} />
-      <Tab label="Home" value={'homeTodos'} />
-      <Tab label="General" value={'generalTodos'} />
+      <Tab label="Personal" value={Categories.PERSONAL} />
+      <Tab label="Work" value={Categories.WORK} />
+      <Tab label="School" value={Categories.SCHOOL} />
+      <Tab label="Home" value={Categories.HOME} />
+      <Tab label="General" value={Categories.GENERAL} />
     </CustomTabs>
     // </AppBar>
   );

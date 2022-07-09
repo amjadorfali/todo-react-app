@@ -4,7 +4,6 @@ query getUserByEmail($paginationInput: FindPaginatedTodosInput!, $user: GetUserB
         firstName
         id
         lastName
-        password
         registrationDate
         registrationNumber
         todos(paginationInput: $paginationInput){

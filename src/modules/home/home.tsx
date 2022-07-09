@@ -1,9 +1,10 @@
 import React from 'react';
 
-import MainPage from './pages/mainPage';
-import Content from './pages/content';
-import Footer from './pages/footer';
+import MainPage from './pages/homeOverview';
+import Content from './components/content';
+import { Footer } from 'components/footer';
 import { useNavigate } from 'react-router-dom';
+import { RoutesConfig } from 'utils/interfaces/routesConfig';
 
 // import { motion, useAnimation, useMotionValue } from "framer-motion";
 // import styled from "@mui/styled-engine";
@@ -18,7 +19,7 @@ const Home: React.FC<React.PropsWithChildren<{}>> = () => {
   return (
     <>
       <div style={{ overflow: 'hidden' }}>
-        <MainPage onStartApp={() => navigate('todo-app')} />
+        <MainPage openTodosApp={() => navigate(RoutesConfig.DO_IT)} />
       </div>
       <Content />
       <Footer />

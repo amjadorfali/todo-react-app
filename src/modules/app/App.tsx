@@ -1,29 +1,53 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { Grid, LinearProgress, Typography } from '@mui/material';
+
+import { HeaderBar } from 'components/headerBar';
+import { AuthProvider } from 'modules/auth/authContext';
+import { BounceComponent } from 'components/loaders';
+import { AuthenticateUser } from 'modules/auth';
+import useApiTimeout from './hooks/useApiTimeout';
 
 import './App.css';
-import { Home } from '../home';
-import { TodoListOverview } from '../todoList';
-import Header from '../home/pages/header';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { RoutesConfig } from 'utils/interfaces/routesConfig';
+
+const Home = React.lazy(() => import('modules/home/home'));
+const TodoListOverview = React.lazy(() => import('modules/todoList/todoListOverview'));
 
 const App: React.FC<React.PropsWithChildren<unknown>> = () => {
+  const { isFetching, isMutating } = useApiTimeout();
   return (
-    <>
-      <ToastContainer position="top-right" autoClose={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable />
-      <Router>
-        <Header />
+    <AuthProvider>
+      <HeaderBar />
+      <BounceComponent open={!!(isFetching || isMutating)} />
+      <Suspense fallback={<LinearProgress color="primary" />}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/todo-app" element={<TodoListOverview />} />
-          {/* 
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route> */}
+          <Route path={RoutesConfig.HOME} element={<Home />} />
+          <Route path={`${RoutesConfig.USER}*`}>
+            <Route path={RoutesConfig.USER_LOGIN} element={<AuthenticateUser />} />
+            <Route path={RoutesConfig.USER_REGISTER} element={<AuthenticateUser />} />
+            <Route
+              path={RoutesConfig.USER_DETAILS}
+              element={
+                <Grid justifyContent={'center'} alignItems="center" container>
+                  <Grid item xs={12}>
+                    <Typography align="center" variant="h2">
+                      Account Details
+                    </Typography>
+                    <Typography align="center" variant="h6">
+                      Coming soon
+                    </Typography>
+                  </Grid>
+                </Grid>
+              }
+            />
+            <Route path="*" element={<Navigate to={RoutesConfig.USER_LOGIN} />} />
+          </Route>
+          <Route path={RoutesConfig.DO_IT} element={<TodoListOverview />} />
+          <Route path="*" element={<Navigate to={RoutesConfig.HOME} />} />
         </Routes>
-      </Router>
-    </>
+      </Suspense>
+    </AuthProvider>
   );
 };
 

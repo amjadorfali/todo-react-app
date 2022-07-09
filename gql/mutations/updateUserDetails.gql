@@ -4,7 +4,6 @@ mutation updateUserDetails($paginationInput: FindPaginatedTodosInput!, $updateUs
         firstName
         id
         lastName
-        password
         registrationDate
         registrationNumber
         todos(paginationInput: $paginationInput){

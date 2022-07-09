@@ -2,33 +2,32 @@ import React, { useEffect } from 'react';
 import styled from '@mui/styled-engine';
 
 import { Paper } from '@mui/material';
-import { Categories } from '../../../stores/appStore';
-import Todo from '../components/todo';
+import Todo from 'modules/todoList/components/todo';
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
-import { TodosListGroups, TodosList } from '../../../stores/appStore';
+import { Categories, TodosList } from 'stores/appStore';
 const height = 55;
 const padding = 16;
 const ListTodos: React.FC<
   React.PropsWithChildren<{
     activeCategory: Categories;
-    todosLists: TodosListGroups;
-    handleRemoveTodo: (type: keyof TodosListGroups, id: number) => void;
+    todosLists: TodosList[];
+    handleRemoveTodo: (type: Categories, id: string) => void;
     showCompleted?: boolean;
   }>
 > = ({ activeCategory, todosLists, handleRemoveTodo, showCompleted = false }) => {
   const y = useMotionValue(0);
 
-  const todos = React.useMemo(
-    () => todosLists[activeCategory].filter((todo) => todo.isComplete === showCompleted),
-    [todosLists, activeCategory, showCompleted]
-  );
+  const todos = React.useMemo(() => todosLists.filter((todo) => todo.isDone === showCompleted), [todosLists, showCompleted]);
   useEffect(() => {
     y.set(0);
   }, [showCompleted, y]);
 
   const { top, bottom } = useConstraints(todos);
   return (
-    <PaperWrapper elevation={0} style={{ height: '100%', backgroundColor: '#5cdb95', width: '85%' }}>
+    <PaperWrapper
+      elevation={0}
+      style={{ height: '100%', backgroundColor: '#5cdb95', width: '85%', minHeight: '56vh', maxHeight: '56vh', overflowY: 'auto' }}
+    >
       <motion.div
         drag="y"
         dragDirectionLock

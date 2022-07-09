@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Snackbar, Button } from '@mui/material';
-import * as serviceWorker from '../../serviceWorkerRegistration';
+import * as serviceWorker from 'serviceWorkerRegistration';
 
 const ServiceWorkerWrapper: FC<React.PropsWithChildren<unknown>> = () => {
   const [showReload, setShowReload] = React.useState(false);

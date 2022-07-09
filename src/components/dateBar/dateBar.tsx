@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Typography } from '@mui/material';
-import { device } from '../../utils/helpers/device';
+import { device } from 'utils/helpers/device';
 import styled from '@mui/styled-engine';
 const DateBar: React.FC<React.PropsWithChildren<unknown>> = () => {
   const [time, setTime] = useState<string>();

@@ -4,10 +4,10 @@ import { Grid } from '@mui/material';
 // import styled from "@mui/styled-engine";
 import { useInView } from 'react-intersection-observer';
 
-import { ReactComponent as PendingIcon } from '../../../assets/svgs/under-construction.svg';
+import { ReactComponent as PendingIcon } from 'assets/svgs/under-construction.svg';
 import { useAnimation, motion } from 'framer-motion';
 
-const Header: React.FC<React.PropsWithChildren<unknown>> = () => {
+const Footer: React.FC<React.PropsWithChildren<unknown>> = () => {
   const iconControls = useAnimation();
   const underConstructionIcon = useInView();
   React.useEffect(() => {
@@ -37,7 +37,7 @@ const Header: React.FC<React.PropsWithChildren<unknown>> = () => {
     </Grid>
   );
 };
-export default Header;
+export default Footer;
 
 // const StyledContainer = styled(Grid)`
 //   height: 90%;

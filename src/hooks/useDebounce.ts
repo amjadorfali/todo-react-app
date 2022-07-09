@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState } from 'react';
 
-export default function useDebounce(start: boolean, delay: number = 500) {
-  const [debouncedValue, setDebouncedValue] = React.useState(false);
+export default function useDebounce<T>(value: T, delay = 500): { debouncedValue: T; isDebouncing: boolean } {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  const [isDebouncing, setIsDebouncing] = useState(false);
 
   React.useEffect(() => {
+    setIsDebouncing(true);
     const handler: NodeJS.Timeout = setTimeout(() => {
-      setDebouncedValue(start);
+      setDebouncedValue(value);
+      setIsDebouncing(false);
     }, delay);
 
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [start, delay]);
+    return () => clearTimeout(handler);
+  }, [value, delay]);
 
-  return debouncedValue;
+  return { debouncedValue, isDebouncing };
 }

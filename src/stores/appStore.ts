@@ -1,23 +1,27 @@
-import { action } from "mobx";
+import { action } from 'mobx';
 
-import { createContext, useContext } from "react";
+import { createContext, useContext } from 'react';
 
 export interface TodosList {
-  todo: string;
-  isComplete: boolean;
-  id: number;
-  description?: string;
-  date?: string;
-  urgency?: "crucial" | "moderate" | "low priority";
+  // todo: string;
+  // isComplete: boolean;
+  // id: number;
+  // description?: string;
+  // date?: string;
+  // urgency?: 'crucial' | 'moderate' | 'low priority';
+  action: string;
+  category: Categories;
+  id: string;
+  isDone: boolean;
 }
-export interface TodosListGroups {
-  personalTodos: TodosList[];
-  workTodos: TodosList[];
-  generalTodos: TodosList[];
-  homeTodos: TodosList[];
-  schoolTodos: TodosList[];
+
+export enum Categories {
+  GENERAL = 'general',
+  WORK = 'work',
+  PERSONAL = 'personal',
+  HOME = 'home',
+  SCHOOL = 'school',
 }
-export type Categories = keyof TodosListGroups;
 
 export class AppStore {
   @action
