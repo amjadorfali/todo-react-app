@@ -27,5 +27,5 @@
   },
 
   "include": ["src", "public/service-worker.ts"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules"]
 }
