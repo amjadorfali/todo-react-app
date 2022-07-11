@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useIsFetching, useIsMutating, useQueryClient } from 'react-query';
-const API_TIMEOUT = 30000;
+const API_TIMEOUT = 15000;
 
 const useApiTimeout = () => {
   const isFetching = useIsFetching({

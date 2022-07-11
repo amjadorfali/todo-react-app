@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@mui/styled-engine';
+import styled from 'styled-components';
 
 import { Grid, Typography, IconButton, ListItemIcon, ListItemText } from '@mui/material';
 import AppBar from '@mui/material/AppBar';

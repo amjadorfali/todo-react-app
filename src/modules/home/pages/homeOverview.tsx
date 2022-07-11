@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import styled from '@mui/styled-engine';
+import styled from 'styled-components';
 import { Grid, Typography, IconButton } from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 

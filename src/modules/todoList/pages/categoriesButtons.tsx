@@ -6,7 +6,7 @@ import Tabs from '@mui/material/Tabs';
 // import AppBar from "@mui/material/AppBar";
 
 import Tab from '@mui/material/Tab';
-import styled from '@mui/styled-engine';
+import styled from 'styled-components';
 import { Categories } from 'stores/appStore';
 
 const CategoriesButtons: React.FC<

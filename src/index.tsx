@@ -41,7 +41,7 @@ const toastOptions: ToastOptions = {
 const onError = (e: unknown, variables?: unknown, context?: unknown) => {
   const displayMessage = lodash.get(e, 'response.errors[0].extensions.exception.response.displayMessage', '');
   const toastMessage = displayMessage ? displayMessage : lodash.startCase(lodash.get(e, 'response.errors[0].message', ''));
-  toast.error(toastMessage, toastOptions);
+  if (toastMessage) toast.error(toastMessage, toastOptions);
 };
 
 if (container) {

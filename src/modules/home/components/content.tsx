@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Grid, Divider } from '@mui/material';
-import styled from '@mui/styled-engine';
+import styled from 'styled-components';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion } from 'framer-motion';
 import { ReactComponent as SimpleIcon } from 'assets/svgs/Flower.svg';
@@ -146,7 +146,7 @@ const StyledText = styled('p')`
   font-size: large;
 `;
 const StyledContainer = styled(Grid)`
-  padding: 1.5rem;
+  padding: 3rem;
   background-color: var(--text-color);
   .svgs {
     width: 15rem;

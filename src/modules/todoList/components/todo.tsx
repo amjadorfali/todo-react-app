@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useMotionValue, useTransform, motion, useAnimation, PanInfo } from 'framer-motion';
-import styled from '@mui/styled-engine';
+import styled from 'styled-components';
 import { Categories, TodosList } from 'stores/appStore';
 const Todo: React.FC<
   React.PropsWithChildren<{

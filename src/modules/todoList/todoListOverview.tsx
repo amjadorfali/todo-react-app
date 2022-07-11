@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Button } from '@mui/material';
-import styled from '@mui/styled-engine';
+import styled from 'styled-components';
 // import { device } from "utils/helpers/device";
 import { toast, ToastOptions } from 'react-toastify';
 import { Categories } from 'stores/appStore';

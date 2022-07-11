@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styled from '@mui/styled-engine';
+import styled from 'styled-components';
 
 import { Paper } from '@mui/material';
 import Todo from 'modules/todoList/components/todo';
