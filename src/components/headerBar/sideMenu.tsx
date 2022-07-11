@@ -6,7 +6,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import { useNavigate } from 'react-router-dom';
-import CreateIcon from '@mui/icons-material/Create';
+import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import { RoutesConfig } from 'utils/interfaces/routesConfig';
 
 const SideMenu: React.FC<{ handleCloseMenu: () => void }> = ({ handleCloseMenu }) => {
@@ -34,13 +34,13 @@ const SideMenu: React.FC<{ handleCloseMenu: () => void }> = ({ handleCloseMenu }
       <List>
         <ListItem onClick={routeToPath(RoutesConfig.HOME)} button key={'Home'}>
           <ListItemIcon>
-            <HomeTwoToneIcon />
+            <HomeTwoToneIcon color="primary" />
           </ListItemIcon>
           <ListItemText primary={'Home'} />
         </ListItem>
         <ListItem onClick={routeToPath(RoutesConfig.DO_IT)} button key={RoutesConfig.DO_IT}>
           <ListItemIcon>
-            <CreateIcon />
+            <CreateTwoToneIcon color="primary" />
           </ListItemIcon>
           <ListItemText primary={'Todos'} />
         </ListItem>

@@ -108,8 +108,8 @@ const TodoListOverview: React.FC<React.PropsWithChildren<unknown>> = () => {
 
   return (
     <StyledContainer container direction="column" wrap={'nowrap'} justifyContent="center" alignContent="center">
-      <Grid container item xs={12} style={{ flexBasis: '30%' }} justifyContent="center" alignContent="center">
-        <Button color="inherit" onClick={() => setToggleCompleted(!toggleCompleted)}>
+      <Grid container item xs={12} gap="1rem" sx={{ flexBasis: '30%', pt: '1rem' }} justifyContent="center" alignContent="center">
+        <Button color="primary" variant={toggleCompleted ? 'contained' : 'outlined'} onClick={() => setToggleCompleted(!toggleCompleted)}>
           {toggleCompleted ? 'Completed' : 'Todos'}
         </Button>
         <CategoriesButtons handleChangeCategory={setActiveCategory} />

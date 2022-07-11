@@ -52,7 +52,7 @@ const WriteTodos: React.FC<React.PropsWithChildren<IProps>> = ({ open, onFormSub
             />
           </form>
         </Grow>
-        <IconButton style={{ position: 'absolute', right: '-1rem', bottom: '2rem' }} onClick={() => handleOnPlusClick()} size="large">
+        <IconButton color="primary" style={{ position: 'absolute', right: '-1rem', bottom: '2rem' }} onClick={() => handleOnPlusClick()} size="large">
           <AddCircleOutlinedIcon fontSize={'large'} />
         </IconButton>
       </StyledContainer>

@@ -3,10 +3,11 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import CheckIcon from '@mui/icons-material/Check';
 import ErrorIcon from '@mui/icons-material/Error';
+import { SxProps, Theme } from '@mui/material';
 
-const VerificationLoader: React.FC<{ loading: boolean; success: boolean }> = ({ loading, success }) => {
+const VerificationLoader: React.FC<{ loading: boolean; success: boolean; sx?: SxProps<Theme> }> = ({ loading, success, sx = {} }) => {
   return (
-    <Box sx={{ m: 1, position: 'relative' }}>
+    <Box sx={{ m: 1, position: 'relative', ...sx }}>
       {loading ? (
         <CircularProgress
           color="secondary"

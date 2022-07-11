@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useMotionValue, useTransform, motion, useAnimation, PanInfo } from 'framer-motion';
 import styled from 'styled-components';
 import { Categories, TodosList } from 'stores/appStore';
+import VerificationLoader from 'components/loaders/verificationLoader';
 const Todo: React.FC<
   React.PropsWithChildren<{
     activeCategory: Categories;
@@ -40,9 +41,10 @@ const Todo: React.FC<
       }}
     >
       <PaperMotion key={todo.id} style={{ background, x }} drag="x" dragDirectionLock onDragEnd={handleDragEnd} animate={controls}>
-        <p key={todo.id} style={{ padding: '1rem', textAlign: 'justify' }}>
+        <p key={todo.id} style={{ paddingLeft: '1rem', textAlign: 'justify' }}>
           {todo.action}
         </p>
+        {todo.isDone ? <VerificationLoader sx={{}} loading={false} success /> : <></>}
       </PaperMotion>
     </motion.div>
   );
@@ -55,4 +57,7 @@ const PaperMotion = styled(motion.div)`
   border-radius: 10px;
   width: 100%;
   margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
